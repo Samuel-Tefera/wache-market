@@ -36,7 +36,7 @@
                     before!
                 </P>
                 <div class="hero-btns">
-                    <a class="btn main-btn" href="#">Start Shoping</a>
+                    <a class="btn main-btn" href="#">Start Trading</a>
                     <a class="btn" href="#">Explore More</a>
                 </div>
             </div>
@@ -162,6 +162,45 @@
                     </div>
                 </div>
             </div>
+        </section>
+        <section class="testemonial-section">
+            <h2>What Wachemo Says</h2>
+            <div class="testemonials">
+                <div class="testemonial">
+                    <img src="assets/images/person-img/henock.jpg" alt="Henock picture" />
+                    <blockquote class="blockquote">&quot;I sold my old calculator in a day and bought a cheap textbook
+                        the
+                        next—it’s so easy!
+                        This
+                        app is perfect for students
+                        like me.&quot;</blockquote>
+                    <p>Henock T., Student</p>
+                </div>
+                <div class="testemonial">
+                    <img src="assets/images/person-img/selam.jpg" alt="Selam picture" />
+                    <blockquote class="blockquote">&quot;Listing my extra dorm stuff was a breeze, and I made some cash.
+                        Love
+                        how it’s all
+                        Wachemo
+                        people!&quot;</blockquote>
+                    <p>Selam M., Student</p>
+                </div>
+                <div class="testemonial">
+                    <img src="assets/images/person-img/dr-lemma.jpg" alt="Dr. Lema K. picture" />
+                    <blockquote class="blockquote">&quot;Found a great deal on a laptop from a colleague here. It’s nice
+                        to
+                        trade within
+                        Wachemo—fast
+                        and trustworthy.&quot;</blockquote>
+                    <p>Dr. Lema K., Staff</p>
+                </div>
+            </div>
+        </section>
+        <section class="last-cta">
+            <p>Ready to join the Wachemo marketplace? Buy, sell, and connect with your university community today. It’s
+                fast, free, and
+                made just for you. Don’t wait—your next deal is calling. Take the first step now!</p>
+            <a class="btn" href="#">Get Started</a>
         </section>
     </main>
 </body>
