@@ -84,3 +84,36 @@ body{
     background-color: #fff;
     color: #002233;
 }
+
+/* Features Section */
+.feature-section{
+    padding: 1rem 4rem;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    text-align: center;
+    gap: 1rem;
+}
+
+.feature-card{
+    margin: 0 auto;
+    width: 16rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.feature-section svg{
+    height: 4rem;
+    width: 4rem;
+}
+
+.feature-section h2{
+    margin: 0;
+    color: #003049;
+    font-size: 1.4rem;
+}
+
+.feature-section p{
+    font-size: 1.2rem;
+}
