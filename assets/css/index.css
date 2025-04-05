@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
 }
 
 /* Header Section */
@@ -208,13 +209,68 @@ body{
 }
 
 .last-cta p{
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     color: #00141f;
 }
 
 .last-cta a:link,
 .last-cta a:active,
 .last-cta a:visited{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: #00141f;
+}
+
+/* Footer Secton */
+
+.footer-section {
+    background-color: #002233;
+    color: #ffffff;
+    padding: 1rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.footer-address h4,
+.footer-social h4,
+.footer-nav h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    color: #99ccff;
+}
+
+.footer-address ul,
+.footer-social ul,
+.footer-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-address li,
+.footer-social li,
+.footer-nav li {
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+.footer-social a,
+.footer-nav a {
+    color: #ccd6db;
+    text-decoration: none;
+    transition:300ms;
+}
+
+.footer-social a:hover,
+.footer-nav a:hover {
+    color: #99ccff;
+}
+
+.footer-copyright {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1rem;
 }
