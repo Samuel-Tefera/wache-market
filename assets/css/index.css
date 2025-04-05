@@ -1,3 +1,7 @@
+*{
+    box-sizing: border-box;
+}
+
 body{
     margin: 0;
     padding: 0;
@@ -10,9 +14,9 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #002233;
+    background-color: #003049;
     padding: 0.5rem 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navigation a:link{
@@ -91,11 +95,11 @@ body{
 /* Features Section */
 .feature-section{
     padding: 1rem 4rem;
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     text-align: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .feature-card{
@@ -121,6 +125,11 @@ body{
 
 /* How it Works Section */
 .how-section{
+    background-color: #e6e9eb;
+    padding: 2rem 4rem;
+}
+
+.how-container{
     width: 80%;
     margin: 2rem auto;
 }
@@ -163,7 +172,7 @@ body{
 }
 
 .testemonial-section{
-    width: 80%;
+    width: 90%;
     padding: 2rem 4rem;
     margin: 0rem auto;
 }
@@ -203,9 +212,9 @@ body{
 
 /* Last call to action section */
 .last-cta{
-    background-color: #4d6470;
     padding: 2rem 6rem;
     text-align: center;
+    margin: 0 0 4rem 0;
 }
 
 .last-cta p{
@@ -217,14 +226,21 @@ body{
 .last-cta a:active,
 .last-cta a:visited{
     font-size: 1.2rem;
+}
+
+.last-btn{
     color: #00141f;
 }
 
-/* Footer Secton */
+.last-btn:hover{
+    background-color: #003049;
+    color: #ccd6db;
+}
 
+/* Footer Secton */
 .footer-section {
     background-color: #002233;
-    color: #ffffff;
+    color: #ccd6db;
     padding: 1rem;
 }
 
@@ -233,6 +249,7 @@ body{
     grid-template-columns: repeat(3, 1fr);
     max-width: 80%;
     margin: 0 auto;
+    justify-content: center;
 }
 
 .footer-address h4,

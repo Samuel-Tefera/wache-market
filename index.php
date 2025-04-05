@@ -117,48 +117,55 @@
         </section>
         <section class="how-section">
             <h2>How it Works</h2>
-            <div class="steps">
-                <div class="step-1 step-container">
-                    <div class="step-num">01</div>
-                    <div class="step">
-                        <h3 class="step-title">Sign Up</h3>
-                        <p class="step-text">Get started with a free account in seconds. Use your Wachemo email to join
-                            the
-                            marketplace. It’s quick and opens the
-                            door to buying and selling. No hassle—just sign up and dive in. You’re one step away from
-                            trading!</p>
+            <div class="how-container">
+                <div class="steps">
+                    <div class="step-1 step-container">
+                        <div class="step-num">01</div>
+                        <div class="step">
+                            <h3 class="step-title">Sign Up</h3>
+                            <p class="step-text">Get started with a free account in seconds. Use your Wachemo email to
+                                join
+                                the
+                                marketplace. It’s quick and opens the
+                                door to buying and selling. No hassle—just sign up and dive in. You’re one step away
+                                from
+                                trading!</p>
+                        </div>
                     </div>
-                </div>
-                <div></div>
-                <div></div>
-                <div class="step-2 step-container">
-                    <div class="step-num">02</div>
-                    <div class="step">
-                        <h3 class="step-title">Browse to Buy</h3>
-                        <p class="step-text">Check out listings from Wachemo students and staff. Find books, gadgets, or
-                            anything you need at great prices. Browse
-                            easily and pick what you want. It’s all local and ready for you. Start shopping now!</p>
+                    <div></div>
+                    <div></div>
+                    <div class="step-2 step-container">
+                        <div class="step-num">02</div>
+                        <div class="step">
+                            <h3 class="step-title">Browse to Buy</h3>
+                            <p class="step-text">Check out listings from Wachemo students and staff. Find books,
+                                gadgets, or
+                                anything you need at great prices. Browse
+                                easily and pick what you want. It’s all local and ready for you. Start shopping now!</p>
+                        </div>
                     </div>
-                </div>
-                <div class="step-3 step-container">
-                    <div class="step-num">03</div>
-                    <div class="step">
-                        <h3 class="step-title">List to Sell</h3>
-                        <p class="step-text">Got stuff to sell? List it fast—snap a photo, add a price, and post. Your
-                            items
-                            reach the Wachemo community instantly.
-                            Turn unused things into cash with ease. Start selling today!</p>
+                    <div class="step-3 step-container">
+                        <div class="step-num">03</div>
+                        <div class="step">
+                            <h3 class="step-title">List to Sell</h3>
+                            <p class="step-text">Got stuff to sell? List it fast—snap a photo, add a price, and post.
+                                Your
+                                items
+                                reach the Wachemo community instantly.
+                                Turn unused things into cash with ease. Start selling today!</p>
+                        </div>
                     </div>
-                </div>
-                <div></div>
-                <div></div>
-                <div class="step-4 step-container">
-                    <div class="step-num">04</div>
-                    <div class="step">
-                        <h3 class="step-title">Switch Anytime</h3>
-                        <p class="step-text">Change roles whenever you want on your profile. Go from buyer to seller—or
-                            back—in a click. Your account adapts to your
-                            needs. Buy one day, sell the next—it’s up to you. Enjoy the flexibility!</p>
+                    <div></div>
+                    <div></div>
+                    <div class="step-4 step-container">
+                        <div class="step-num">04</div>
+                        <div class="step">
+                            <h3 class="step-title">Switch Anytime</h3>
+                            <p class="step-text">Change roles whenever you want on your profile. Go from buyer to
+                                seller—or
+                                back—in a click. Your account adapts to your
+                                needs. Buy one day, sell the next—it’s up to you. Enjoy the flexibility!</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -200,7 +207,7 @@
             <p>Ready to join the Wachemo marketplace? Buy, sell, and connect with your university community today. It’s
                 fast, free, and
                 made just for you. Don’t wait—your next deal is calling. Take the first step now!</p>
-            <a class="btn" href="#">Get Started</a>
+            <a class="btn last-btn" href="#">Get Started</a>
         </section>
     </main>
     <footer class="footer-section">
