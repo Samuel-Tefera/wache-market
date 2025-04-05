@@ -203,6 +203,39 @@
             <a class="btn" href="#">Get Started</a>
         </section>
     </main>
+    <footer class="footer-section">
+        <div class="footer-grid">
+            <div class="footer-address">
+                <h4>Contact Us</h4>
+                <ul>
+                    <li>Wachemo University Hossana, Ethiopia.</li>
+                    <li>info@wachemo-ecommerce.com</li>
+                    <li>+251 123 456 789</li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="">Create Account Now</a></li>
+                    <li><a href="#">Start Shoping</a></li>
+                    <li><a href="#">Start Selling</a></li>
+                    <li><a href="pages/contact.php">Login</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2025 Wachemo E-Commerce. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>
