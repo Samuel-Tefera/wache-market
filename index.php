@@ -13,10 +13,11 @@
         <nav class="navigation">
             <a class="logo" href="#">wache market</a>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">How it Works</a></li>
-                <li><a href="#">Sign Up</a></li>
+                <li><a class="nav-btn" href="#">Home</a></li>
+                <li><a class="nav-btn" href="#">Features</a></li>
+                <li><a class="nav-btn" href="#">How it Works</a></li>
+                <li><a class="nav-btn" href="#">Testemonials</a></li>
+                <li><a class="nav-btn sign-up__btn" href="#">Sign Up</a></li>
             </ul>
         </nav>
     </header>
