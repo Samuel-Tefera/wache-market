@@ -19,27 +19,39 @@ body{
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.navigation a:link{
+.nav-btn, .logo{
     text-decoration: none;
     text-transform: uppercase;
     color: #ccd6db;
     font-weight: 700;
 }
 
-.navigation a:hover,
-.navigation a:active,
-.navigation a:visited{
-    color: #fff;
+.nav-btn:hover,
+.logo:hover{
+    color: #99ccff;
 }
 
 .navigation ul{
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .navigation ul li{
     list-style: none;
+}
+
+.sign-up__btn{
+    padding: 10px 12px;
+    border: solid 1px #ccd6db;
+    border-radius: 6px;
+    background-color: #ccd6db;
+    color: #003049;
+    transition: 300ms;
+}
+
+.sign-up__btn:hover{
+    background-color: #003049;
 }
 
 /* Hero -section */
