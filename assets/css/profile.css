@@ -1,35 +1,253 @@
-.profile-container{
-    padding: 2rem 4rem;
-    width: 60%;
-    margin: 0 auto;
-    display: flex;
-    gap: 10rem;
+/* Adjust page container below navbar */
+.container {
 }
 
-.profile-pic{
-    width: 14rem;
-    height: 14rem;
-    border-radius: 12px;
+
+.container {
+  margin-top: 20px;
+  display: flex;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  gap: 20px;
 }
 
-.wallet-info{
-    padding-left: 4rem;
-    margin-bottom: 2rem;
+.profile-section {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-form{
-    padding-left: 4rem;
+
+.transaction-section {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.wallet-btns{
-    display: flex;
-    gap: 1rem;
+.transactions-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  max-height: 500px; /* Limit height */
+  overflow-y: auto;
 }
 
-.wallet-btns a{
-    text-decoration: none;
+
+.profile-section {
+  flex: 1;
 }
 
-.wallet-btns a:hover{
-    text-decoration: underline;
+.transaction-section {
+  flex: 2;
+  overflow-y: auto;
+}
+
+.profile-card {
+  text-align: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.wallet, .mode-switch {
+  margin-top: 20px;
+}
+
+button {
+  background-color: #2e8b57;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #256d46;
+}
+
+
+/* Wallet amount + eye icon */
+.wallet-amount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.eye-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+.transactions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.transaction {
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.transaction.positive {
+  background-color: #e0f8e9;
+  color: #2e7d32;
+}
+
+.transaction.negative {
+  background-color: #fdecea;
+  color: #c62828;
+}
+
+.transaction .date {
+  font-size: 0.9em;
+  color: #888;
+}
+
+/* Popup Styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content input {
+  padding: 10px;
+  width: 80%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.popup-buttons button {
+  margin: 0 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+.popup {
+  display: none; /* default hidden */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+/* New Pop-Up */
+.popup-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  width: 300px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popup-content h3 {
+  margin-top: 0;
+  text-align: center;
+  color: #2e8b57;
+}
+
+.popup-content label {
+  font-weight: 500;
+}
+
+.popup-content input,
+.popup-content select {
+  padding: 8px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.popup-submit {
+  background-color: #2e8b57;
+}
+
+.popup-submit:hover {
+  background-color: #256d46;
+}
+
+.popup-close {
+  background-color: #e74c3c;
+}
+
+.popup-close:hover {
+  background-color: #c0392b;
+}
+
+
+.user-mode {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.radio-group label {
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+input[type="radio"] {
+  accent-color: #2e8b57;
+  transform: scale(1.2);
 }
