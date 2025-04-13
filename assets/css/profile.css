@@ -47,8 +47,11 @@
 .wallet-amount {
   display: flex;
   align-items: center;
+  justify-items: center;
+  justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.5rem;
+  width: 14rem;
 }
 
 .wallet-amount span{
@@ -60,6 +63,11 @@
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+svg{
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
 button {
