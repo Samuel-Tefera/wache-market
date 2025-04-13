@@ -44,30 +44,37 @@
         <div class="profile-section">
             <div class="profile-card">
                 <img src="../assets/images/person-img/henock.jpg" alt="Profile Picture" class="avatar" />
-                <h2>Jane Doe</h2>
-                <p>Email: jane@wache.com</p>
-                <p><strong>Current Mode:</strong> <span id="user-mode-display">Buyer</span></p>
-                <p>Address: Hossana, ET</p>
-                <div class="wallet">
-                    <h3>Wallet Balance</h3>
+                <div class="profile-info">
+                    <P>Name: <span>John Doe</span></P>
+                    <P>Email: <span>john@wache.com</span></P>
+                    <p>Address: Block <span>200</span>, Dorm # <span>108</span></p>
+                </div>
+                <div class="wallet-info">
+                    <h3>Your Wallet</h3>
                     <div class="wallet-amount">
-                        <span id="wallet-amount">$1250</span>
+                        <p>Amount: <span id="wallet-amount">1287.45</span></p>
                         <button class="eye-toggle" onclick="toggleWalletVisibility()">👁️</button>
                     </div>
-
-                    <button onclick="openPopup('deposit')">Deposit</button>
-                    <button onclick="openPopup('withdraw')">Withdraw</button>
+                    <button class="btn" onclick="openPopup('deposit')">Deposit</button>
+                    <button class="btn" onclick="openPopup('withdraw')">Withdraw</button>
                 </div>
                 <div class="user-mode">
-                    <label>User Mode:</label>
+                    <p>Current Mode: <span id="user-mode-display">Buyer</span></p>
                     <div class="radio-group">
-                        <label>
-                            <input type="radio" name="userMode" value="buyer" checked onchange="switchMode(this.value)">
-                            Buyer
-                        </label>
-                        <label>
-                            <input type="radio" name="userMode" value="seller" onchange="switchMode(this.value)"> Seller
-                        </label>
+                        <div>
+                            <label>Change mode here:</label>
+                        </div>
+                        <div class="radios">
+                            <label>
+                                <input type="radio" name="userMode" value="buyer" checked
+                                    onchange="switchMode(this.value)">
+                                Buyer
+                            </label>
+                            <label>
+                                <input type="radio" name="userMode" value="seller" onchange="switchMode(this.value)">
+                                Seller
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,6 +93,10 @@
                 <div class="transaction positive">
                     <p><strong>+ $300</strong> - Sale - M-Pesa</p>
                     <p class="date">Apr 08, 2025</p>
+                </div>
+                <div class="transaction negative">
+                    <p><strong>- $50</strong> - Purchase - Amole</p>
+                    <p class="date">Apr 07, 2025</p>
                 </div>
                 <div class="transaction negative">
                     <p><strong>- $50</strong> - Purchase - Amole</p>
