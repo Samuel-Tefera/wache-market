@@ -1,88 +1,58 @@
-/* Adjust page container below navbar */
-.container {
+:root {
+  --primary: #4a6bff;
+  --primary-dark: #3a56d4;
+  --danger: #dc3545;
+  --danger-dark: #bb2d3b;
+  --dark: #2b2d42;
+  --light: #f8f9fa;
+  --white: #ffffff;
 }
 
-
 .container {
-  margin-top: 20px;
+  margin-top: 4.4rem;
   display: flex;
-  height: 100vh;
-  padding: 20px;
+  padding: 2rem;
   box-sizing: border-box;
-  gap: 20px;
+  gap: 1rem;
+  height: 90%;
+}
+
+.avatar {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 12px;
+  margin-bottom: 1.2rem;
 }
 
 .profile-section {
   background-color: #ffffff;
-  padding: 25px;
+  padding: 2.4rem 1.2rem;
   border-radius: 15px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-
-.transaction-section {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.transactions-container {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  max-height: 500px; /* Limit height */
-  overflow-y: auto;
-}
-
-
-.profile-section {
   flex: 1;
 }
 
-.transaction-section {
-  flex: 2;
-  overflow-y: auto;
+.profile-card{
+  padding-left: 4rem;
 }
 
-.profile-card {
-  text-align: center;
+.profile-info span{
+  font-weight: bold;
 }
 
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+.wallet-info{
+  margin-top: 2.4rem;
 }
 
-.wallet, .mode-switch {
-  margin-top: 20px;
-}
-
-button {
-  background-color: #2e8b57;
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #256d46;
-}
-
-
-/* Wallet amount + eye icon */
 .wallet-amount {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.wallet-amount span{
+  font-weight: bold;
 }
 
 .eye-toggle {
@@ -93,21 +63,69 @@ button:hover {
 }
 
 button {
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--primary);
+  color: #fff;
   border: none;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+}
+
+.user-mode {
+  margin-top: 2.4rem;
+}
+
+.user-mode span{
   font-weight: bold;
 }
 
-button:hover {
-  background-color: #3e8e41;
+.radio-group {
+  display: flex;
+  gap: 2.4rem;
+  margin-top: 10px;
+}
+
+.radios{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.radio-group label {
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+input[type="radio"] {
+  accent-color: var(--primary);
+  transform: scale(1.2);
+}
+
+.transaction-section {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 2;
 }
 
 .transactions {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  max-height: 26rem;
+  overflow-y: auto;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -136,19 +154,6 @@ button:hover {
 }
 
 /* Popup Styles */
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
 .popup-content input {
   padding: 10px;
   width: 80%;
@@ -165,7 +170,6 @@ button:hover {
   display: none;
 }
 
-
 .popup {
   display: none; /* default hidden */
   position: fixed;
@@ -178,7 +182,6 @@ button:hover {
   align-items: center;
   z-index: 1000;
 }
-
 
 /* New Pop-Up */
 .popup-content {
@@ -224,30 +227,4 @@ button:hover {
 
 .popup-close:hover {
   background-color: #c0392b;
-}
-
-
-.user-mode {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.radio-group {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 10px;
-}
-
-.radio-group label {
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-input[type="radio"] {
-  accent-color: #2e8b57;
-  transform: scale(1.2);
 }
