@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My&dash;Profile Wache Market</title>
-    <link rel="stylesheet" href="../assets/css/profile.css" />
-    <link rel="stylesheet" href="../assets/css/nav.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/seller-home.css" />
+    <link rel="stylesheet" href="../assets/css/profile.css" />
 </head>
 
 <body>
-    <header class="logged-in">
+    <header class="seller-header">
         <nav class="navbar">
             <div class="nav-left">
                 <a href="#" class="logo">
@@ -19,22 +19,18 @@
                     Wache-Market
                 </a>
             </div>
-
-            <div class="nav-center">
+            <div class="seller-nav-center">
                 <ul class="nav-links">
-                    <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="seller-home.html"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
-                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
                     <li><a href="orders.html"><i class="fas fa-clipboard-list"></i> Orders</a></li>
                 </ul>
             </div>
-
             <div class="nav-right">
-                <a href="logout.html" class="btn btn-logout">
+                <a href="#" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>
-
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
