@@ -27,7 +27,17 @@
         </div>
 
         <input type="url" placeholder="Profile-Link" class="input" />
-        <input type="text" placeholder="Address" class="input" />
+<label for="dor">Address</label>
+
+        <div id="dor">
+            <label for="dorm">Dorm Number:</label>
+            <input type="text" id="dorm" name="dorm">
+        </div>
+        
+        <div id="dor">
+            <label for="block">Block Number:</label>
+            <input type="text" id="block" name="block">
+        </div>
         <button class="btn">Sign Up</button>
       </form>
     </div>
