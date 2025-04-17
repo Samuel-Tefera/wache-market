@@ -1,61 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Wachemo&dash;Browse Products</title>
-    <link rel="stylesheet" href="../assets/css/home.css" />
+    <title>Seller Dashboard - Wache-Market</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/seller-home.css">
 </head>
-
 <body>
-    <header>
-        <nav class="navigation">
-            <a class="logo" href="#">wache market</a>
-            <form>
-                <!-- <input class="search-input" placeholder="Search by category" type="search"> -->
-            </form>
-            <ul>
-                <li><a class="nav-btn" href="#">Home</a></li>
-                <li><a class="nav-btn" href="#">Profile</a></li>
-                <li><a class="nav-btn" href="#">Transaction</a></li>
-                <li><a class="nav-btn sign-up__btn" href="#">Logout</a></li>
-            </ul>
+    <!-- Navigation -->
+    <header class="seller-header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="#" class="logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    Wache-Market
+                </a>
+            </div>
+            <div class="seller-nav-center">
+                <ul class="nav-links">
+                    <li><a href="seller-home.php" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="profile.php"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="orders.php"><i class="fas fa-clipboard-list"></i> Orders</a></li>
+                </ul>
+            </div>
+            <div class="nav-right">
+                <a href="#" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </nav>
     </header>
-    <main>
-        <section class="category-section">
-            <div class="">
-                <p class="category-title">My Products</p>
-                <div class="products">
-                    <div class="product">
-                        <img class="product-img" alt="product image" src="../assets/images/samples/hacking.jpg">
-                        <div class="product-info">
-                            <p class="product-title">Hacking Multifactor Authentication</p>
-                            <p class="product-price">ETB<span> 230.00</span></p>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <img class="product-img" alt="Running sports shoes" src="../assets/images/samples/running-shoe.jpg">
-                        <div class="product-info">
-                            <p class="product-title">Performance Running Shoes</p>
-                            <p class="product-price">ETB<span> 4200.00</span></p>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <img class="product-img" alt="HP Pavilion G7 laptop" src="../assets/images/samples/laptop1.jpg">
-                        <div class="product-info">
-                            <p class="product-title">HP Pavilion G7 Laptop</p>
-                            <p class="product-price">ETB<span> 27500.00</span></p>
-                        </div>
-                    </div>
+
+    <!-- Main Content -->
+    <main class="seller-dashboard">
+        <!-- Stats Cards -->
+        <section class="stats-section">
+            <div class="stats-card">
+                <div class="stats-icon">
+                    <i class="fas fa-box-open"></i>
                 </div>
-                <div class="see-more">
-                    <a class="see__more-btn btn" href="#">Add Product</a>
+                <div class="stats-info">
+                    <h3>Total Products</h3>
+                    <p class="stats-value">24</p>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stats-info">
+                    <h3>Pending Orders</h3>
+                    <p class="stats-value">5</p>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stats-info">
+                    <h3>This Month's Sales</h3>
+                    <p class="stats-value">ETB 3,450</p>
+                </div>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stats-info">
+                    <h3>Your Rating</h3>
+                    <p class="stats-value">4.8 <small>/5</small></p>
                 </div>
             </div>
         </section>
-    </main>
-</body>
 
+        <!-- Products Table -->
+        <section class="products-section">
+            <div class="section-header">
+                <h2>Your Products</h2>
+                <a href="add-product.php" class="add-product-btn">
+                    <i class="fas fa-plus"></i> Add Product
+                </a>
+            </div>
+
+            <div class="products-table-container">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Views</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="product-cell">
+                                <img src="../assets/images/samples/mdeical-book1jpg.jpg" alt="Product" class="product-thumb">
+                                <span>Engineering Textbook Vol.2</span>
+                            </td>
+                            <td>ETB 350</td>
+                            <td>3</td>
+                            <td>124</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td class="actions-cell">
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        <tr>
+                            <td class="product-cell">
+                                <img src="../assets/images/samples/mdeical-book1jpg.jpg" alt="Product" class="product-thumb">
+                                <span>Engineering Textbook Vol.2</span>
+                            </td>
+                            <td>ETB 350</td>
+                            <td>3</td>
+                            <td>124</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td class="actions-cell">
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        <tr>
+                            <td class="product-cell">
+                                <img src="../assets/images/samples/mdeical-book1jpg.jpg" alt="Product" class="product-thumb">
+                                <span>Engineering Textbook Vol.2</span>
+                            </td>
+                            <td>ETB 350</td>
+                            <td>3</td>
+                            <td>124</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td class="actions-cell">
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        <tr>
+                            <td class="product-cell">
+                                <img src="../assets/images/samples/mdeical-book1jpg.jpg" alt="Product" class="product-thumb">
+                                <span>Engineering Textbook Vol.2</span>
+                            </td>
+                            <td>ETB 350</td>
+                            <td>3</td>
+                            <td>124</td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td class="actions-cell">
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <!-- More rows would go here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="activity-section">
+            <h2>Recent Activity</h2>
+            <div class="activity-feed">
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p>New order received for <strong>Engineering Textbook</strong></p>
+                        <small>10 minutes ago</small>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p>New order received for <strong>Engineering Textbook</strong></p>
+                        <small>10 minutes ago</small>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p>New order received for <strong>Engineering Textbook</strong></p>
+                        <small>10 minutes ago</small>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="activity-content">
+                        <p>New order received for <strong>Engineering Textbook</strong></p>
+                        <small>10 minutes ago</small>
+                    </div>
+                </div>
+                <!-- More activity items would go here -->
+            </div>
+        </section>
+    </main>
+
+    <script src="seller.js"></script>
+</body>
 </html>
