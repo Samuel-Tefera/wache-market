@@ -1,45 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>signup</title>
-    <link rel="stylesheet" href="../assets/css/login.css" />
-  </head>
-  <body>
-    <div class="container">
-      <form action="#" class="form" id="form1">
-        <h2 class="form__title">Sign Up</h2>
-        <input type="text" placeholder="FirstName" class="input" />
-        <input type="text" placeholder="LastName" class="input" />
-        <input type="tel" placeholder="PhoneNumber" class="input" />
-
-        <div class="mode">
-          <input id="radio1" name="mode" type="radio" value="buyer" /><label
-            for="radio1"
-            >Buyer</label
-          >
-
-          <input id="radio2" name="mode" type="radio" value="seller" /><label
-            for="radio2"
-            >Seller</label
-          >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Wache-Market</title>
+    <link rel="stylesheet" href="../assets/css/signup.css">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create Your Account</h1>
+            <p>Join Wache-Market to buy and sell on campus</p>
         </div>
+        <form id="signupForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name*</label>
+                    <input type="text" id="firstName" required>
+                    <div class="error-message" id="firstName-error"></div>
+                </div>
 
-        <input type="url" placeholder="Profile-Link" class="input" />
-<label for="dor">Address</label>
+                <div class="form-group">
+                    <label for="lastName">Last Name*</label>
+                    <input type="text" id="lastName" required>
+                    <div class="error-message" id="lastName-error"></div>
+                </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                  <label for="email">Email*</label>
+                  <input type="email" id="email" required>
+                  <div class="error-message" id="email-error"></div>
+              </div>
 
-        <div id="dor">
-            <label for="dorm">Dorm Number:</label>
-            <input type="text" id="dorm" name="dorm">
-        </div>
-        
-        <div id="dor">
-            <label for="block">Block Number:</label>
-            <input type="text" id="block" name="block">
-        </div>
-        <button class="btn">Sign Up</button>
-      </form>
+              <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="telphone" id="phone" placeholder="+251 243 697 011">
+                  <div class="error-message" id="phone-error"></div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="password">Password*</label>
+                <input type="password" id="password" required>
+                <div class="error-message" id="password-error"></div>
+              </div>
+
+              <div class="form-group">
+                  <label for="confirmPassword">Confirm Password*</label>
+                  <input type="password" id="confirmPassword" required>
+                  <div class="error-message" id="confirmPassword-error"></div>
+              </div>
+            </div>
+
+            <div class="form-group-row">
+                <div>
+                  <label>I want to join as*</label>
+                </div>
+                <div class="mode-selector">
+                    <label class="mode-option">
+                        <input type="radio" name="mode" value="buyer" checked>
+                        <span>Buyer</span>
+                    </label>
+                    <label class="mode-option">
+                        <input type="radio" name="mode" value="seller">
+                        <span>Seller</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                  <label for="address">Address (Block & Dorm Number)</label>
+                  <input type="text" id="address" placeholder="e.g., Block A, Dorm 205">
+              </div>
+
+              <div class="form-group">
+                  <label for="profileImage">Profile Picture (Optional)</label>
+                  <input type="file" id="profileImage" accept="image/*">
+                  <div class="error-message" id="profileImage-error"></div>
+              </div>
+            </div>
+
+            <button type="submit" class="signup-btn">Create Account</button>
+
+            <div class="login-link">
+                Already have an account? <a href="login.html">Log in</a>
+            </div>
+        </form>
     </div>
-  </body>
+
+    <script src="../assets/js/signup.js"></script>
+</body>
 </html>
