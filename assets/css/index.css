@@ -201,7 +201,7 @@ header {
 
 .hero-buttons {
     display: flex;
-    gap: 2rem;
+    gap: 4rem;
 }
 
 .hero-image {
@@ -210,7 +210,7 @@ header {
 }
 
 .hero-image img {
-    width: 100%;
+    width: 25rem;
     height: auto;
     display: block;
 }
