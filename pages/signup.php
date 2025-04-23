@@ -12,30 +12,30 @@
             <h1>Create Your Account</h1>
             <p>Join Wache-Market to buy and sell on campus</p>
         </div>
-        <form id="signupForm">
+        <form id="signupForm" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group">
                     <label for="firstName">First Name*</label>
-                    <input type="text" id="firstName" required>
+                    <input name="firstName" type="text" id="firstName" required>
                     <div class="error-message" id="firstName-error"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="lastName">Last Name*</label>
-                    <input type="text" id="lastName" required>
+                    <input name="lastName" type="text" id="lastName" required>
                     <div class="error-message" id="lastName-error"></div>
                 </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                   <label for="email">Email*</label>
-                  <input type="email" id="email" required>
+                  <input name="email" type="email" id="email" required>
                   <div class="error-message" id="email-error"></div>
               </div>
 
               <div class="form-group">
                   <label for="phone">Phone Number</label>
-                  <input type="telphone" id="phone" placeholder="+251 243 697 011">
+                  <input name="phone" type="telphone" id="phone" placeholder="+251 243 697 011">
                   <div class="error-message" id="phone-error"></div>
               </div>
             </div>
@@ -43,7 +43,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="password">Password*</label>
-                <input type="password" id="password" required>
+                <input name="password" type="password" id="password" required>
                 <div class="error-message" id="password-error"></div>
               </div>
 
@@ -73,12 +73,12 @@
             <div class="form-row">
               <div class="form-group">
                   <label for="address">Address (Block & Dorm Number)</label>
-                  <input type="text" id="address" placeholder="e.g., Block A, Dorm 205">
+                  <input name="address" type="text" id="address" placeholder="e.g., Block A, Dorm 205">
               </div>
 
               <div class="form-group">
                   <label for="profileImage">Profile Picture (Optional)</label>
-                  <input type="file" id="profileImage" accept="image/*">
+                  <input name="profile" type="file" id="profileImage" accept="image/*">
                   <div class="error-message" id="profileImage-error"></div>
               </div>
             </div>
