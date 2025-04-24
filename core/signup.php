@@ -66,8 +66,11 @@ $stmt = $conn->prepare("INSERT INTO Users (first_name, last_name, email, phone_n
 $stmt->bind_param("ssssssss", $firstName, $lastName, $email, $phone, $hash, $mode, $profilePath, $address);
 
 if ($stmt->execute()) {
+    session_start();
+    $_SESSION['user_id'] = $conn->insert_id;
+    $_SESSION['mode'] = $_POST['mode'] ?? 'buyer'; // capture mode from form
     $response['success'] = true;
-    $response['message'] = 'User created successfully';
+    $response['message'] = 'User created and logged in successfully';
 } else {
     $response['message'] = 'Database error: ' . $stmt->error;
 }
