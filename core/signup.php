@@ -70,6 +70,7 @@ if ($stmt->execute()) {
     $_SESSION['user_id'] = $conn->insert_id;
     $_SESSION['mode'] = $_POST['mode'] ?? 'buyer'; // capture mode from form
     $response['success'] = true;
+    $response['mode'] = $_SESSION['mode'];
     $response['message'] = 'User created and logged in successfully';
 } else {
     $response['message'] = 'Database error: ' . $stmt->error;
