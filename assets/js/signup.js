@@ -1,28 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('signupForm');
     const profileImageInput = document.getElementById('profileImage');
-    const profilePreview = document.getElementById('profilePreview');
-
-    // Profile image preview
-    profileImageInput.addEventListener('change', function() {
-        const file = this.files[0];
-        if (!file) return;
-
-        if (!file.type.match('image.*')) {
-            showError('profileImage-error', 'Please select an image file');
-            this.value = '';
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            profilePreview.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
-        };
-        reader.readAsDataURL(file);
-    });
 
     // Form submission
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
         resetErrors();
 
@@ -30,10 +11,29 @@ document.addEventListener('DOMContentLoaded', function() {
         const isValid = validateForm();
 
         if (isValid) {
-            // In a real application, you would send the form data to the server here
-            alert('Account created successfully!');
-            form.reset();
-            profilePreview.innerHTML = '';
+            const formData = new FormData( form );
+            const response = await fetch( '../../core/signup.php', {
+                method: 'POST',
+                body: formData
+            } );
+            const data = await response.json();
+            console.log(data);
+
+            if (!data.success) {
+                if ( data.message.includes( 'Email' ) ) {
+                    showError('email-error', 'Email is already registered!');
+                } else {
+                    alert('Something went wrong. Please try again later.')
+                }
+            } else {
+                if ( data.mode === 'buyer' ) {
+                    window.location.href = 'buyer-home.php';
+                }
+                else {
+                    window.location.href = 'seller-home.php';
+                }
+                form.reset();
+            }
         }
     });
 
@@ -125,10 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const element = document.getElementById(id);
         element.textContent = message;
         element.style.display = 'block';
-    }
-
-    function hideError(id) {
-        document.getElementById(id).style.display = 'none';
     }
 
     function resetErrors() {
