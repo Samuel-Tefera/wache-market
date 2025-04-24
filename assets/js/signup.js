@@ -2,12 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('signupForm');
     const profileImageInput = document.getElementById('profileImage');
 
-    // Form submission
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         resetErrors();
 
-        // Validate form
         const isValid = validateForm();
 
         if (isValid) {
@@ -37,11 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Validation functions
     function validateForm() {
         let isValid = true;
 
-        // First name validation
         const firstName = document.getElementById('firstName').value.trim();
         if (!firstName) {
             showError('firstName-error', 'First name is required');
@@ -51,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Last name validation
         const lastName = document.getElementById('lastName').value.trim();
         if (!lastName) {
             showError('lastName-error', 'Last name is required');
@@ -61,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Email validation
         const email = document.getElementById('email').value.trim();
         if (!email) {
             showError('email-error', 'Email is required');
@@ -74,14 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Phone validation (optional)
         const phone = document.getElementById('phone').value.trim();
         if (phone && !isValidPhone(phone)) {
             showError('phone-error', 'Please enter a valid phone number');
             isValid = false;
         }
 
-        // Password validation
         const password = document.getElementById('password').value;
         if (!password) {
             showError('password-error', 'Password is required');
@@ -91,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Confirm password validation
         const confirmPassword = document.getElementById('confirmPassword').value;
         if (!confirmPassword) {
             showError('confirmPassword-error', 'Please confirm your password');
@@ -101,9 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
-        // Profile image validation (optional)
         const profileImage = profileImageInput.files[0];
-        if (profileImage && profileImage.size > 2 * 1024 * 1024) { // 2MB limit
+        if (profileImage && profileImage.size > 2 * 1024 * 1024) {
             showError('profileImage-error', 'Image must be less than 2MB');
             isValid = false;
         }
@@ -132,4 +122,4 @@ document.addEventListener('DOMContentLoaded', function() {
             el.style.display = 'none';
         });
     }
-});
+} );
