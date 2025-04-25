@@ -1,3 +1,7 @@
+<?php
+include_once '../core/auth.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

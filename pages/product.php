@@ -1,3 +1,8 @@
+<?php
+include_once '../core/auth.php';
+require_auth('buyer');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
