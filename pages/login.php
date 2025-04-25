@@ -10,26 +10,26 @@
     <div class="login-container">
         <div class="welcome-message">
             <h1>Welcome back!</h1>
-            <p>Sign in to your WatchE-Market account</p>
+            <p>Sign in to your Wache Market account</p>
         </div>
 
         <form id="loginForm">
             <div class="form-group">
-                <input type="email" id="email" placeholder="Email address" required>
+                <input name="email" type="email" id="email" placeholder="Email address" required>
                 <div class="error-message" id="email-error"></div>
             </div>
 
             <div class="form-group">
-                <input type="password" id="password" placeholder="Password" required>
+                <input name="password" type="password" id="password" placeholder="Password" required>
                 <div class="error-message" id="password-error"></div>
             </div>
-
+            <div id="auth-error" class="error-message" ></div>
             <button type="submit" class="login-btn">Sign In</button>
 
             <div class="footer-links">
-                <a href="forgot-password.html">Forgot password?</a>
+                <p>Not registred yet</p>
                 <span>•</span>
-                <a href="signup.html">Create account</a>
+                <a href="signup.html">Create account here</a>
             </div>
         </form>
     </div>
