@@ -211,6 +211,6 @@ require_auth('seller');
         </section>
     </main>
 
-    <script src="seller.js"></script>
+    <script src="../assets/js/seller-home.js"></script>
 </body>
 </html>
