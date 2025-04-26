@@ -31,7 +31,7 @@ include_once '../core/auth.php';
                 </ul>
             </div>
             <div class="nav-right">
-                <a href="#" class="btn-logout">
+                <a href="../core/logout.php" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>
