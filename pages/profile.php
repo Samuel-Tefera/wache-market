@@ -1,5 +1,6 @@
 <?php
 include_once '../core/auth.php';
+require_auth();
 ?>
 
 <!DOCTYPE html>
