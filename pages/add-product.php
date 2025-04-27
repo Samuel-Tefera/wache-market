@@ -3,13 +3,13 @@ include_once '../core/auth.php';
 require_auth('seller');
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product - WatchE-Market</title>
+    <title>Add Product - Wache Market</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/product.css">
     <link rel="stylesheet" href="../assets/css/add-product.css">
 </head>
@@ -31,34 +31,34 @@ require_auth('seller');
         <form id="productForm">
             <div class="form-group">
                 <label for="title">Title*</label>
-                <input type="text" id="title" required maxlength="100">
+                <input name="title" type="text" id="title" required maxlength="100">
                 <div class="error" id="title-error"></div>
             </div>
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea id="description" rows="3"></textarea>
+                <textarea name="description" id="description" rows="3"></textarea>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="price">Price*</label>
-                    <input type="number" id="price" min="0" step="0.01" required>
+                    <input name="price" type="number" id="price" min="0" step="0.01" required>
                     <div class="error" id="price-error"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="quantity">Quantity*</label>
-                    <input type="number" id="quantity" min="1" value="1" required>
+                    <input name="quantity" type="number" id="quantity" min="1" value="1" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="category">Category*</label>
-                    <select id="category" required>
+                    <select name="category" id="category" required>
                         <option value="">Select...</option>
-                        <option value="textbooks">Textbooks</option>
+                        <option value="textbooks">Books</option>
                         <option value="electronics">Electronics</option>
                         <option value="clothing">Clothing</option>
                         <option value="furniture">Furniture</option>
@@ -66,28 +66,16 @@ require_auth('seller');
                     </select>
                     <div class="error" id="category-error"></div>
                 </div>
-
-                <div class="form-group">
-                    <label for="condition">Condition*</label>
-                    <select id="condition" required>
-                        <option value="">Select...</option>
-                        <option value="new">New</option>
-                        <option value="used - like new">Used - Like New</option>
-                        <option value="used - good">Used - Good</option>
-                        <option value="used - fair">Used - Fair</option>
-                    </select>
-                    <div class="error" id="condition-error"></div>
-                </div>
             </div>
 
             <div class="form-group">
                 <label for="images">Images (Max 5)*</label>
-                <input type="file" id="images" multiple accept="image/*" required>
+                <input name="images[]" type="file" id="images" multiple accept="image/*" required>
                 <div class="error" id="images-error"></div>
                 <div id="image-preview"></div>
             </div>
-
-            <button type="submit">List Product</button>
+            <div class="error" id="general-error"></div>
+            <button type="submit">Add Product</button>
         </form>
     </div>
 
@@ -101,7 +89,6 @@ require_auth('seller');
             </div>
         </div>
     </div>
-
     <script src="../assets/js/add-product.js"></script>
 </body>
 </html>
