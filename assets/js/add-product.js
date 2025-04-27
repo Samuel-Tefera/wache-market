@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const imageInput = document.getElementById('images');
     const imagePreview = document.getElementById('image-preview');
 
-    // Image preview handling
     imageInput.addEventListener('change', function() {
         imagePreview.innerHTML = '';
         const files = this.files;
@@ -30,21 +29,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form submission
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit',async function(e) {
         e.preventDefault();
         resetErrors();
 
-        // Validate form
         const isValid = validateForm();
 
-        if (isValid) {
-            // In real app, submit to server here
-            modal.style.display = 'flex';
+        if ( isValid ) {
+            const formData = new FormData( form );
+            const response = await fetch( '../core/add-product.php', {
+                method: 'POST',
+                body: formData
+            } );
+            const data = await response.json();
+            if ( data.success ) {
+                modal.style.display = 'flex';
+            } else {
+                showError('general-error', 'Please validate your inputs or Please try again later.')
+            }
         }
     });
 
-    // Modal buttons
     document.getElementById('addAnother').addEventListener('click', function() {
         modal.style.display = 'none';
         form.reset();
@@ -52,48 +57,35 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('backToDashboard').addEventListener('click', function() {
-        // In real app, redirect to dashboard
-        console.log('Redirect to dashboard');
+        window.location.href = 'seller-home.php';
         modal.style.display = 'none';
     });
 
-    // Close modal when clicking outside
     window.addEventListener('click', function(e) {
         if (e.target === modal) {
             modal.style.display = 'none';
         }
     });
 
-    // Validation functions
     function validateForm() {
         let isValid = true;
 
-        // Title validation
         if (!form.title.value.trim()) {
             showError('title-error', 'Title is required');
             isValid = false;
         }
 
-        // Price validation
         const price = parseFloat(form.price.value);
         if (isNaN(price) || price <= 0) {
             showError('price-error', 'Enter a valid price');
             isValid = false;
         }
 
-        // Category validation
         if (!form.category.value) {
             showError('category-error', 'Select a category');
             isValid = false;
         }
 
-        // Condition validation
-        if (!form.condition.value) {
-            showError('condition-error', 'Select condition');
-            isValid = false;
-        }
-
-        // Images validation
         if (imageInput.files.length === 0) {
             showError('images-error', 'Upload at least one image');
             isValid = false;
@@ -117,4 +109,4 @@ document.addEventListener('DOMContentLoaded', function() {
             el.style.display = 'none';
         });
     }
-});
+} );
