@@ -1,12 +1,11 @@
 <?php
 header('Content-Type: application/json');
-include_once '../core/db.php'; // adjust if needed
+include_once '../core/db.php';
 
 $response = ['success' => false];
 
 try {
     if (isset($_GET['product_id'])) {
-        // 1. FETCH SINGLE PRODUCT
         $productId = intval($_GET['product_id']);
 
         $stmt = $conn->prepare("
@@ -39,7 +38,6 @@ try {
         }
 
     } else {
-        // 2. FETCH ALL PRODUCTS with optional filter/search
         $categoryFilter = isset($_GET['category']) ? trim($_GET['category']) : '';
         $searchQuery = isset($_GET['search']) ? trim($_GET['search']) : '';
 
@@ -67,7 +65,7 @@ try {
 
         if ($searchQuery !== '') {
             $sql .= " AND p.title LIKE ?";
-            $params[] = "%" . $searchQuery . "%"; // partial search
+            $params[] = "%" . $searchQuery . "%";
             $types .= 's';
         }
 
