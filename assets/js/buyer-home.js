@@ -97,4 +97,105 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.addEventListener('resize', handleMobileView);
     handleMobileView();
-});
+} );
+
+// /////////////////////////////////////////
+// Organize and render product categories with max 6 per category
+async function fetchAndRenderProducts(search = '', category = '') {
+    try {
+        let url = '../core/product.php';
+        const params = new URLSearchParams(window.location.search);
+
+        if (search) params.append('search', search);
+        if (category) params.append('category', category);
+
+        if (params.toString()) {
+            url += '?' + params.toString();
+        }
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if ( data.success ) {
+            renderProductsByCategory( data.products );
+        } else {
+            console.log('Failed to fetch products:', data.error);
+        }
+    } catch (error) {
+        console.log('Error fetching products:', error);
+    }
+};
+
+fetchAndRenderProducts();
+
+function renderProductsByCategory(products) {
+    const container = document.querySelector('.category-products');
+    container.innerHTML = ''; // Clear old samples
+
+    // Group products by category
+    const grouped = products.reduce((acc, product) => {
+        const category = product.category.toLowerCase();
+        if (!acc[category]) acc[category] = [];
+        acc[category].push(product);
+        return acc;
+    }, {});
+
+    // Icons per category (optional)
+    const categoryIcons = {
+        textbooks: 'fa-book',
+        electronics: 'fa-laptop',
+        clothing: 'fa-tshirt',
+        furniture: 'fa-couch',
+        other: 'fa-box'
+    };
+
+    Object.entries(grouped).forEach(([category, items]) => {
+        if (!items.length) return;
+
+        const displayName = capitalize(category);
+        const icon = categoryIcons[category] || 'fa-box';
+
+        const topProducts = items.slice(0, 6);
+
+        const section = document.createElement('div');
+        section.className = 'category-section';
+
+        section.innerHTML = `
+            <div class="category-header">
+                <h2><i class="fas ${icon}"></i> ${displayName}</h2>
+                <a href="category.html?type=${category}" class="view-all-btn">View All</a>
+            </div>
+            <div class="products-grid">
+                ${topProducts.map(p => renderProductCard(p)).join('')}
+            </div>
+        `;
+        container.appendChild(section);
+    });
+}
+
+function renderProductCard(product) {
+    return `
+        <div class="product-card">
+            <div class="product-image">
+                <img src="../${product.first_image}" alt="${product.title}">
+            </div>
+            <div class="product-details">
+                <h3 class="product-title">${product.title}</h3>
+                <div class="product-price">ETB ${parseFloat(product.price).toLocaleString()}</div>
+                <div class="product-seller">
+                    <i class="fas fa-user"></i> ${product.seller_name}
+                </div>
+                <div class="product-actions">
+                    <a href="product.php?id=${product.product_id}" class="detail-btn">See Details</a>
+                    <button class="add-cart-btn">
+                        <i class="fas fa-cart-plus"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
