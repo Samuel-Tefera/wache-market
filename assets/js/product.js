@@ -47,8 +47,14 @@ async function fetchProductDetail () {
 
     const response = await fetch( `../core/product.php?${ params.toString() }` );
     const data = await response.json();
-    if ( data.success ) {
+
+    if ( data.success && data.product) {
         renderProductDetailUI( data.product );
+    } else if ( !data.product ) {
+        showFallbackMessage( 'Oops! We couldn’t find the product you’re looking for.' );
+    }
+    else {
+        showFallbackMessage( 'Oops! Failed to load product. Please try again later.' );
     }
 };
 
@@ -127,4 +133,13 @@ function renderProductDetailUI(product) {
 // Capitalize first letter helper
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function showFallbackMessage(message) {
+    const main = document.querySelector('.product-container');
+    main.innerHTML = `
+        <div class="fallback-message">
+            <p>${message}</p>
+        </div>
+    `;
 }
