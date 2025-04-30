@@ -224,9 +224,14 @@ body {
 }
 
 .products-table td {
-    padding: 15px 10px;
-    border-bottom: 1px solid var(--light-gray);
+    width: max-content;
+    padding: 1.2rem 1rem;
     vertical-align: middle;
+    height: 5.5rem;
+}
+
+.products-table tr{
+    border-bottom: 1px solid var(--light-gray);
 }
 
 .product-cell {
@@ -257,7 +262,7 @@ body {
 
 .status-badge.inactive {
     background-color: rgba(108, 117, 125, 0.1);
-    color: var(--gray);
+    color: var(--danger);
 }
 
 .actions-cell {
@@ -266,12 +271,9 @@ body {
 }
 
 .action-btn {
-    width: 30px;
-    height: 30px;
+    width: 2.4rem;
+    height: 2.4rem;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -390,4 +392,13 @@ body {
         display: block;
         overflow-x: auto;
     }
+}
+
+.fallback-message {
+    width: max-content;
+    margin: 4rem auto;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+    font-weight: 500;
 }
