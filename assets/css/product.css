@@ -225,3 +225,12 @@ h1 {
         font-size: 0.9rem;
     }
 }
+
+.fallback-message {
+    width: max-content;
+    margin: 4rem auto;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #555;
+    font-weight: 500;
+}
