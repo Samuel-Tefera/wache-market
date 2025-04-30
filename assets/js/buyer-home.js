@@ -186,7 +186,7 @@ function renderProductCard(product) {
                     <i class="fas fa-user"></i> ${product.seller_name}
                 </div>
                 <div class="product-actions">
-                    <a href="product.php?id=${product.product_id}" class="detail-btn">See Details</a>
+                    <a href="product.php?product_id=${product.product_id}" class="detail-btn">See Details</a>
                     <button class="add-cart-btn">
                         <i class="fas fa-cart-plus"></i> Add
                     </button>
