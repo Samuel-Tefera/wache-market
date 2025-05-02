@@ -2,11 +2,16 @@ document.addEventListener( "DOMContentLoaded", async function () {
   await fetchProfileData();
   toggleWalletVisibility();
   const form = document.getElementById("transaction-form");
-  form.addEventListener("submit", function (e) {
+  form.addEventListener( "submit", async function ( e ) {
     e.preventDefault();
 
     const popup = document.getElementById("popup");
     const type = popup.dataset.actionType;
+
+    const formData = new FormData( form );
+    formData.append( 'action', type );
+    console.log(formData);
+
     const method = document.getElementById("method").value;
     const amount = parseFloat(document.getElementById("amount").value);
 
@@ -16,7 +21,18 @@ document.addEventListener( "DOMContentLoaded", async function () {
     }
 
     // Handle logic
-    alert(`${type.toUpperCase()} of $${amount} via ${method.toUpperCase()} submitted!`);
+    const response = await fetch( '../core/transaction.php', {
+      method: 'POST',
+      body: formData
+    } );
+    const data = await response.json();
+    console.log(data);
+
+    if ( data.success ) {
+        alert(`${type.toUpperCase()} of $${amount} via ${method.toUpperCase()} submitted!`);
+    } else {
+      alert(data.message)
+    }
 
     closePopup();
   });
@@ -73,7 +89,7 @@ function renderUserTransactions(transactions) {
       }
 
       txnDiv.innerHTML = `
-          <p><strong>${txn.type.toLowerCase() === 'sale' || txn.type.toLowerCase() === 'deposit' ? '+' : '-'} $${parseFloat(txn.amount).toFixed(2)}</strong> - ${capitalizeFirstLetter(txn.type)} - ${capitalizeFirstLetter(txn.method)}</p>
+          <p><strong>${txn.type.toLowerCase() === 'sale' || txn.type.toLowerCase() === 'deposit' ? '+' : '-'} $${parseFloat(txn.amount).toFixed(2)}</strong> - ${capitalizeFirstLetter(txn.type)} - ${txn.method === 'cbe' ? txn.method.toUpperCase() : capitalizeFirstLetter(txn.method)}</p>
           <p class="date">${formatDate(txn.transaction_date)}</p>
       `;
 
