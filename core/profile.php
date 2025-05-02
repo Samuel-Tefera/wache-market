@@ -17,7 +17,7 @@ $userResult = $userStmt->get_result();
 $userInfo = $userResult->fetch_assoc();
 $userStmt->close();
 
-$transactionStmt = $conn->prepare("SELECT amount, method, type, status, transaction_date FROM Transactions WHERE user_id = ?");
+$transactionStmt = $conn->prepare("SELECT amount, method, type, status, transaction_date FROM Transactions WHERE user_id = ? ORDER BY transaction_date DESC");
 $transactionStmt->bind_param("i", $userId);
 $transactionStmt->execute();
 $transactionResult = $transactionStmt->get_result();
