@@ -44,7 +44,7 @@ require_auth();
     <div class="container">
         <div class="profile-section">
             <div class="profile-card">
-                <img id="user-image" src="../assets/images/person-img/henock.jpg" alt="Profile Picture" class="avatar" />
+                <img id="user-image" src="" alt="Profile Picture" class="avatar" />
                 <div class="profile-info">
                     <P>Name: <span id="user-name"></span></P>
                     <P>Email: <span id="user-email"></span></P>
@@ -60,7 +60,7 @@ require_auth();
                         </button>
                     </div>
                     <button class="btn" onclick="openPopup('deposit')">Deposit</button>
-                    <button class="btn" onclick="openPopup('withdraw')">Withdraw</button>
+                    <button class="btn" onclick="openPopup('withdrawal')">Withdraw</button>
                 </div>
                 <div class="user-mode">
                     <p>Current Mode: <span id="user-mode-display"></span></p>
@@ -95,7 +95,7 @@ require_auth();
             <h3 id="popup-title">Action</h3>
             <form id="transaction-form">
                 <label for="method">Select Method:</label>
-                <select id="method" required>
+                <select name="method" id="method" required>
                     <option value="">-- Choose Method --</option>
                     <option value="cbe">CBE</option>
                     <option value="amole">Amole</option>
@@ -104,7 +104,7 @@ require_auth();
                 </select>
 
                 <label for="amount">Enter Amount:</label>
-                <input type="number" id="amount" min="1" required placeholder="Amount" />
+                <input name="amount" type="number" id="amount" min="1" required placeholder="Amount" />
 
                 <button type="submit" class="popup-submit">Confirm</button>
                 <button type="button" class="popup-close" onclick="closePopup()">Cancel</button>
