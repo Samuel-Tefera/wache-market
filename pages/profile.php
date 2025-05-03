@@ -26,9 +26,17 @@ require_auth();
             </div>
             <div class="seller-nav-center">
                 <ul class="nav-links">
-                    <li><a href="seller-home.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
-                    <li><a href="orders.html"><i class="fas fa-clipboard-list"></i> Orders</a></li>
+                    <?php if ($_SESSION['mode'] === 'seller'): ?>
+                        <!-- Seller Navigation -->
+                        <li><a href="seller-home.php"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                        <li><a href="orders.php"><i class="fas fa-clipboard-list"></i> Orders</a></li>
+                    <?php else: ?>
+                        <!-- Buyer Navigation -->
+                        <li><a href="buyer-home.php"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                        <li><a href="cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <div class="nav-right">
