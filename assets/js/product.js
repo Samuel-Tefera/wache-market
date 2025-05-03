@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener( 'DOMContentLoaded', async function () {
+    await fetchProductDetail();
     const thumbnails = document.querySelectorAll('.thumbnail');
     const mainImage = document.querySelector('.main-image img');
 
@@ -16,18 +17,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const addToCartBtn = document.querySelector('.add-to-cart-btn');
 
     if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', function() {
-            const originalText = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
-            this.style.backgroundColor = '#28a745';
+        addToCartBtn.addEventListener( 'click', async function () {
+            const productId = this.getAttribute( 'data-product-id' );
 
-            const productName = document.querySelector('h1').textContent;
-            console.log(`Added to cart: ${productName}`);
-
-            setTimeout(() => {
-                this.innerHTML = originalText;
-                this.style.backgroundColor = '';
-            }, 2000);
+            const formData = new FormData();
+            formData.append( 'product_id', productId );
+            const response = await fetch( '../core/cart.php', {
+                method: 'POST',
+                body: formData,
+            } );
+            if ( response.ok ) {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
+                this.style.backgroundColor = '#28a745';
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.backgroundColor = '';
+                }, 2000);
+            } else {
+                alert( 'Something Went Wrong. Please try agin later.' );
+            }
         });
     }
 
@@ -43,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function fetchProductDetail () {
     params = new URLSearchParams( window.location.search );
-    console.log(params.toString());
 
     const response = await fetch( `../core/product.php?${ params.toString() }` );
     const data = await response.json();
@@ -57,8 +65,6 @@ async function fetchProductDetail () {
         showFallbackMessage( 'Oops! Failed to load product. Please try again later.' );
     }
 };
-
-fetchProductDetail();
 
 function renderProductDetailUI(product) {
     const main = document.querySelector( '.product-container' );
@@ -92,45 +98,13 @@ function renderProductDetailUI(product) {
             </div>
         </section>
         <div class="add-to-cart-container">
-            <button class="add-to-cart-btn">
+            <button class="add-to-cart-btn" data-product-id="${product.product_id}">
                 <i class="fas fa-cart-plus"></i> Add to Cart
             </button>
         </div>
     `;
-
-    // Re-bind thumbnail image switching
-    const thumbnails = document.querySelectorAll('.thumbnail');
-    const mainImage = document.querySelector('.main-image img');
-
-    thumbnails.forEach(thumb => {
-        thumb.addEventListener('click', function () {
-            thumbnails.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            const thumbSrc = this.querySelector('img').src;
-            mainImage.src = thumbSrc.replace('200', '800');
-        });
-    });
-
-    // Add to Cart button interaction
-    const addToCartBtn = document.querySelector('.add-to-cart-btn');
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', function () {
-            const originalText = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
-            this.style.backgroundColor = '#28a745';
-
-            const productName = document.querySelector('h1').textContent;
-            console.log(`Added to cart: ${productName}`);
-
-            setTimeout(() => {
-                this.innerHTML = originalText;
-                this.style.backgroundColor = '';
-            }, 2000);
-        });
-    }
 }
 
-// Capitalize first letter helper
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
