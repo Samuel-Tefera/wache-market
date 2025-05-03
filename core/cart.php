@@ -85,3 +85,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode($response);
     exit;
 }
+
+// Handle DELETE: Remove product from cart
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    // Parse raw input for DELETE (PHP doesn't parse it automatically)
+    parse_str(file_get_contents("php://input"), $deleteData);
+    $product_id = isset($deleteData['product_id']) ? intval($deleteData['product_id']) : null;
+
+    if (!$product_id) {
+        $response['error'] = 'Product ID is required for deletion';
+        echo json_encode($response);
+        exit;
+    }
+
+    $deleteStmt = $conn->prepare("DELETE FROM cart WHERE user_id = ? AND product_id = ?");
+    $deleteStmt->bind_param("ii", $user_id, $product_id);
+
+    if ($deleteStmt->execute()) {
+        $response['success'] = true;
+        $response['message'] = 'Product removed from cart';
+    } else {
+        $response['error'] = 'Failed to remove product';
+    }
+
+    echo json_encode($response);
+    exit;
+}
