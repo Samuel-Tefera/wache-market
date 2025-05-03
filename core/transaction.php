@@ -43,7 +43,7 @@ if ($action === 'deposit' || $action === 'withdrawal') {
     $update->close();
 
     // Insert transaction
-    $insert = $conn->prepare("INSERT INTO Transactions (user_id, amount, type, method, status) VALUES (?, ?, ?, ?, 'pending')");
+    $insert = $conn->prepare("INSERT INTO Transactions (user_id, amount, type, method, status) VALUES (?, ?, ?, ?, 'completed')");
     $insert->bind_param("idss", $user_id, $amount, $action, $method);
     $insert->execute();
     $insert->close();
@@ -104,12 +104,12 @@ if ($action === 'deposit' || $action === 'withdrawal') {
         $update_seller->execute();
 
         // Insert buyer transaction
-        $buyer_txn = $conn->prepare("INSERT INTO Transactions (user_id, amount, type, method, status, related_product_id) VALUES (?, ?, 'purchase', ?, 'pending', ?)");
+        $buyer_txn = $conn->prepare("INSERT INTO Transactions (user_id, amount, type, method, status, related_product_id) VALUES (?, ?, 'purchase', ?, 'completed', ?)");
         $buyer_txn->bind_param("idssi", $user_id, $price, $method, $product_id);
         $buyer_txn->execute();
 
         // Insert seller transaction
-        $seller_txn = $conn->prepare("INSERT INTO Transactions (user_id, amount, type, method, status, related_product_id) VALUES (?, ?, 'sale', ?, 'pending', ?)");
+        $seller_txn = $conn->prepare("INSERT INTO Transactions (user_id, amount, type, method, status, related_product_id) VALUES (?, ?, 'sale', ?, 'completed', ?)");
         $seller_txn->bind_param("idssi", $seller_id, $price, $method, $product_id);
         $seller_txn->execute();
 
