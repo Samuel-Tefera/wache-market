@@ -27,6 +27,7 @@ require_auth('buyer');
                     <li><a href="buyer-home.php" class="active"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="profile.php"><i class="fas fa-user"></i> Profile</a></li>
                     <li><a href="cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                    <li><a href="buyer-orders.php"><i class="fas fa-clipboard-list"></i> Orders</a></li>
                 </ul>
             </div>
             <div class="nav-right">

@@ -36,6 +36,7 @@ require_auth();
                         <li><a href="buyer-home.php"><i class="fas fa-home"></i> Home</a></li>
                         <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
                         <li><a href="cart.php"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                        <li><a href="buyer-orders.php"><i class="fas fa-clipboard-list"></i> Orders</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
