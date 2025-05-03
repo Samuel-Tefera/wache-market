@@ -1,4 +1,3 @@
-// Mobile menu toggle
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navCenter = document.querySelector('.seller-nav-center');
 
@@ -12,12 +11,12 @@ if (mobileMenuBtn && navCenter) {
 }
 
 
-// buyer.js - Buyer Home Page Functionality
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // 1. Search Functionality
-    const searchBox = document.querySelector('.search-box input');
+    const searchBox = document.querySelector( '.search-box input' );
     const searchBtn = document.querySelector('.search-btn');
+    await fetchAndRenderProducts();
 
     function performSearch() {
         const searchTerm = searchBox.value.trim();
@@ -35,46 +34,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 2. Filter/Sort Functionality
     const categoryFilter = document.querySelector('.category-filter');
-    const sortFilter = document.querySelector('.sort-filter');
+    // const sortFilter = document.querySelector('.sort-filter');
 
     function applyFilters() {
         const category = categoryFilter.value;
-        const sortBy = sortFilter.value;
+        // const sortBy = sortFilter.value;
 
         console.log(`Filtering by: ${category}, Sorting by: ${sortBy}`);
         // In a real app, this would filter/sort the product list
     }
 
     categoryFilter.addEventListener('change', applyFilters);
-    sortFilter.addEventListener('change', applyFilters);
+    // sortFilter.addEventListener('change', applyFilters);
 
     // 3. Add to Cart Functionality
     const addCartBtns = document.querySelectorAll('.add-cart-btn');
-    const cartCount = document.querySelector('.cart-count');
 
     addCartBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const productCard = this.closest('.product-card');
-            const productName = productCard.querySelector('.product-title').textContent;
+    btn.addEventListener('click', async () => {
+        // const productCard = btn.closest('.product-card');
+        const productId = btn.getAttribute('data-product-id');
 
-            // Update cart count
-            let currentCount = parseInt(cartCount.textContent) || 0;
-            cartCount.textContent = currentCount + 1;
+        const formData = new FormData();
+        formData.append( 'product_id', productId );
+        console.log(formData);
 
-            // Visual feedback
-            this.innerHTML = '<i class="fas fa-check"></i> Added';
-            this.style.backgroundColor = '#28a745';
-
-            // In a real app, this would add to cart in your backend
-            console.log(`Added to cart: ${productName}`);
-
-            // Reset button after 2 seconds
+        const response = await fetch( '../core/cart.php', {
+            method: 'POST',
+            body: formData,
+        } );
+        if ( response.ok ) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Added';
+            btn.style.backgroundColor = '#28a745';
             setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-cart-plus"></i> Add';
-                this.style.backgroundColor = '';
-            }, 2000);
-        });
+                btn.innerHTML = originalText;
+                btn.style.backgroundColor = '';
+            }, 2000)
+        } else {
+            alert(response.error)
+        }
     });
+});
+
+
 
     // 4. View All Button Functionality
     const viewAllBtns = document.querySelectorAll('.view-all-btn');
@@ -126,8 +129,6 @@ async function fetchAndRenderProducts(search = '', category = '') {
     }
 };
 
-fetchAndRenderProducts();
-
 function renderProductsByCategory(products) {
     const container = document.querySelector('.category-products');
     container.innerHTML = ''; // Clear old samples
@@ -173,7 +174,7 @@ function renderProductsByCategory(products) {
     });
 }
 
-function renderProductCard(product) {
+function renderProductCard ( product ) {
     return `
         <div class="product-card">
             <div class="product-image">
@@ -187,7 +188,7 @@ function renderProductCard(product) {
                 </div>
                 <div class="product-actions">
                     <a href="product.php?product_id=${product.product_id}" class="detail-btn">See Details</a>
-                    <button class="add-cart-btn">
+                    <button class="add-cart-btn" data-product-id="${product.product_id}">
                         <i class="fas fa-cart-plus"></i> Add
                     </button>
                 </div>
