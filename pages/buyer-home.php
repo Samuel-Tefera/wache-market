@@ -40,7 +40,6 @@ require_auth('buyer');
         </nav>
     </header>
     <main class="buyer-main">
-        <!-- Search and Filter Section -->
         <section class="search-filter-section">
             <div class="search-container">
                 <div class="search-box">
@@ -56,11 +55,6 @@ require_auth('buyer');
                         <option value="electronics">Electronics</option>
                         <option value="clothing">Clothing</option>
                         <option value="dorm">Dorm Items</option>
-                    </select>
-                    <select class="sort-filter">
-                        <option value="newest">Newest First</option>
-                        <option value="price-low">Price: Low to High</option>
-                        <option value="price-high">Price: High to Low</option>
                     </select>
                 </div>
             </div>
