@@ -57,7 +57,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const formData = new FormData();
         formData.append( 'product_id', productId );
-        console.log(formData);
 
         const response = await fetch( '../core/cart.php', {
             method: 'POST',
@@ -72,12 +71,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                 btn.style.backgroundColor = '';
             }, 2000)
         } else {
-            alert(response.error)
+            alert( 'Something Went Wrong. Please try agin later.' );
         }
     });
 });
-
-
 
     // 4. View All Button Functionality
     const viewAllBtns = document.querySelectorAll('.view-all-btn');
