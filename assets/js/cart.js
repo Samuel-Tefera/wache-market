@@ -3,15 +3,24 @@ document.addEventListener( 'DOMContentLoaded', async function () {
     // Remove Item Functionality
     const removeButtons = document.querySelectorAll('.remove-btn');
 
-    removeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const cartItem = this.closest('.cart-item');
-            cartItem.style.animation = 'fadeOut 0.3s ease';
-
-            setTimeout(() => {
-                cartItem.remove();
-                // In a real app, you would update the total here
-            }, 300);
+    removeButtons.forEach(btn => {
+        btn.addEventListener('click', async () => {
+        const productId = btn.dataset.productId;
+        try {
+            const res = await fetch('../core/cart.php', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `product_id=${productId}`
+            });
+            const result = await res.json();
+            if (result.success) {
+                renderCart();
+            } else {
+                alert('Failed to remove item: ' + result.error);
+            }
+        } catch (error) {
+            console.error('Delete failed', error);
+            }
         });
     });
 
