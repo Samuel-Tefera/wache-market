@@ -37,78 +37,7 @@
         </nav>
     </header>
     <div class="orders-container">
-        <h1>My Orders</h1>
 
-        <div class="orders-list">
-            <!-- Order 1 -->
-            <div class="order-card">
-                <div class="order-header">
-                    <span class="order-id">Order #WE235689</span>
-                    <span class="order-date">Placed on Oct 12, 2023</span>
-                    <span class="order-status">Processing</span>
-                </div>
-
-                <div class="order-details">
-                    <img src="https://via.placeholder.com/80" alt="Product" class="product-image">
-                    <div class="product-info">
-                        <h3>Calculus Textbook 2023 Edition</h3>
-                        <p>Seller: JohnDoe</p>
-                        <p class="price">$45.99</p>
-                    </div>
-                </div>
-
-                <div class="order-actions">
-                    <button class="cancel-btn">Cancel Order</button>
-                    <button class="report-btn">Report Issue</button>
-                </div>
-            </div>
-
-            <!-- Order 2 -->
-            <div class="order-card">
-                <div class="order-header">
-                    <span class="order-id">Order #WE874562</span>
-                    <span class="order-date">Placed on Oct 5, 2023</span>
-                    <span class="order-status">Shipped</span>
-                </div>
-
-                <div class="order-details">
-                    <img src="https://via.placeholder.com/80" alt="Product" class="product-image">
-                    <div class="product-info">
-                        <h3>Wireless Earbuds</h3>
-                        <p>Seller: TechGuru</p>
-                        <p class="price">$29.99</p>
-                    </div>
-                </div>
-
-                <div class="order-actions">
-                    <button class="cancel-btn" disabled>Cancel Order</button>
-                    <button class="report-btn">Report Issue</button>
-                </div>
-            </div>
-
-            <!-- Order 3 -->
-            <div class="order-card">
-                <div class="order-header">
-                    <span class="order-id">Order #WE124578</span>
-                    <span class="order-date">Placed on Sep 28, 2023</span>
-                    <span class="order-status">Delivered</span>
-                </div>
-
-                <div class="order-details">
-                    <img src="https://via.placeholder.com/80" alt="Product" class="product-image">
-                    <div class="product-info">
-                        <h3>Winter Jacket</h3>
-                        <p>Seller: FashionQueen</p>
-                        <p class="price">$65.00</p>
-                    </div>
-                </div>
-
-                <div class="order-actions">
-                    <button class="cancel-btn" disabled>Cancel Order</button>
-                    <button class="report-btn">Report Issue</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Cancel Order Modal -->
