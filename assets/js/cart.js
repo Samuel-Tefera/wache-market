@@ -1,6 +1,5 @@
 document.addEventListener( 'DOMContentLoaded', async function () {
     await renderCart();
-    // Remove Item Functionality
     const removeButtons = document.querySelectorAll('.remove-btn');
 
     removeButtons.forEach(btn => {
@@ -15,6 +14,7 @@ document.addEventListener( 'DOMContentLoaded', async function () {
             const result = await res.json();
             if (result.success) {
                 renderCart();
+                window.location.reload();
             } else {
                 alert('Failed to remove item: ' + result.error);
             }
@@ -43,13 +43,52 @@ document.addEventListener( 'DOMContentLoaded', async function () {
     }
 
     if (confirmBtn) {
-        confirmBtn.addEventListener('click', function() {
-            // In a real app, this would process the checkout
-            alert('Checkout completed! Redirecting to order confirmation...');
+        confirmBtn.addEventListener('click', async function () {
+            try {
+                // Fetch latest cart data from backend
+                const cartRes = await fetch('../core/cart.php');
+                const cartData = await cartRes.json();
+
+                if (!cartData.success || !Array.isArray(cartData.items) || cartData.items.length === 0) {
+                    alert('No cart data found. Please add items before confirming.');
+                    return;
+                }
+
+                // Extract product_ids and subtotal
+                const product_ids = cartData.items.map(item => item.product_id);
+                const total_amount = Number(cartData.subtotal.toFixed(2));
+                const formData = new FormData();
+                product_ids.forEach(id => {
+                    formData.append('product_ids[]', id);
+                });
+                formData.append( 'total_amount', +total_amount );
+
+                // Send to orders.php
+                const orderRes = await fetch('../core/order.php', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await orderRes.json();
+
+                if (result.success) {
+                    alert('Order placed successfully!');
+                    window.location.href = 'buyer-orders.php';
+                } else {
+                    alert(result.error || 'Order failed. Please try again.');
+                }
+
+            } catch (err) {
+                console.error('Checkout error:', err);
+                alert('An error occurred during checkout.');
+            }
+
+            // Close modal
             modalOverlay.classList.add('hidden');
-            // window.location.href = 'checkout.html';
         });
     }
+
+
 
     // Close modal when clicking outside
     modalOverlay.addEventListener('click', function(e) {
