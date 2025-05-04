@@ -7,6 +7,8 @@
     --white: #ffffff;
     --danger-dark: #d90429;
     --bg-light: #f8f9fa;
+    --danger: #ef233c;
+    --border: #dee2e6;
 }
 
 
@@ -28,6 +30,12 @@
     margin-bottom: 20px;
     font-size: 1.8rem;
     text-align: center;
+}
+
+.orders-container p{
+    text-align: center;
+    font-size: 2.4rem;
+    color: #aaa;
 }
 
 .orders-list {
