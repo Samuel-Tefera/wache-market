@@ -16,9 +16,11 @@ document.addEventListener( 'DOMContentLoaded', async function () {
     let currentOrder = null;
 
     // Cancel Order functionality
+    let orderId;
     cancelButtons.forEach(button => {
         button.addEventListener('click', function() {
-            currentOrder = this.closest('.order-card');
+            currentOrder = this.closest( '.order-card' );
+            orderId = button.getAttribute( 'data-order-id' );
             cancelModal.style.display = 'flex';
         });
     });
@@ -32,24 +34,19 @@ document.addEventListener( 'DOMContentLoaded', async function () {
     });
 
     // Confirm Cancel
-    confirmCancel.addEventListener('click', function() {
-        if (currentOrder) {
-            // In a real app, you would send a request to your backend here
-            const statusElement = currentOrder.querySelector('.order-status');
-            statusElement.textContent = 'Cancelled';
-            statusElement.setAttribute('data-status', 'Cancelled');
-            statusElement.style.backgroundColor = '#f8d7da';
-            statusElement.style.color = '#721c24';
-
-            // Disable cancel button
-            const cancelBtn = currentOrder.querySelector('.cancel-btn');
-            cancelBtn.disabled = true;
-
-            // Close modal
-            cancelModal.style.display = 'none';
-
-            // Show success message
-            alert('Order has been cancelled successfully.');
+    confirmCancel.addEventListener( 'click', async function () {
+        const formData = new FormData();
+        formData.append( 'action', 'update_status' );
+        formData.append( 'order_id', orderId);
+        formData.append( 'status', 'canceled' );
+        const response = await fetch( '../core/order.php', {
+            method: 'POST',
+            body: formData
+        } );
+        const data = await response.json();
+        if ( data.success ) {
+            alert( 'You order is Cancelled.' );
+            window.location.reload();
         }
     });
 
@@ -124,15 +121,12 @@ function renderOrders(data) {
                 year: 'numeric', month: 'short', day: 'numeric'
             });
 
-            // Fake status for now (you can later replace this with actual status from DB)
-            let status = 'Processing';
-
             // Header
             orderCard.innerHTML = `
                 <div class="order-header">
                     <span class="order-id">Order #${order.order_id}</span>
                     <span class="order-date">Placed on ${formattedDate}</span>
-                    <span class="order-status">${status}</span>
+                    <span class="order-status">${order.status}</span>
                 </div>
 
                 <div class="order-details">
@@ -145,15 +139,15 @@ function renderOrders(data) {
                 </div>
 
                 <div class="order-actions">
-                    <button class="cancel-btn">Cancel Order</button>
+                    <button ${order.status !== 'pending' ? 'disabled' : ''}  data-order-id=${order.order_id} class="cancel-btn">Cancel Order</button>
                     <button class="report-btn">Report Issue</button>
                 </div>
             `;
-            ordersList.appendChild(orderCard);
+            ordersList.appendChild( orderCard );
         });
     } else {
-        ordersList.innerHTML = '<p>No orders found.</p>';
+        ordersList.innerHTML = '<p class="fall-back-text">No orders found.</p>';
     }
 
-    container.appendChild(ordersList);
+    container.appendChild( ordersList );
 }
