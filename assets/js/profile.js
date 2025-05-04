@@ -82,14 +82,14 @@ function renderUserTransactions(transactions) {
       const txnDiv = document.createElement('div');
       txnDiv.classList.add('transaction');
 
-      if (txn.type.toLowerCase() === 'sale' || txn.type.toLowerCase() === 'deposit') {
+      if (txn.type.toLowerCase() === 'sale' || txn.type.toLowerCase() === 'deposit' || txn.type.toLowerCase() === 'refund') {
           txnDiv.classList.add('positive');
       } else {
           txnDiv.classList.add('negative');
       }
 
       txnDiv.innerHTML = `
-          <p><strong>${txn.type.toLowerCase() === 'sale' || txn.type.toLowerCase() === 'deposit' ? '+' : '-'} $${parseFloat(txn.amount).toFixed(2)}</strong> - ${capitalizeFirstLetter(txn.type)} - ${txn.method === 'cbe' ? txn.method.toUpperCase() : capitalizeFirstLetter(txn.method)}</p>
+          <p><strong>${txn.type.toLowerCase() === 'sale' || txn.type.toLowerCase() === 'deposit' || txn.type.toLowerCase() === 'refund' ? '+' : '-'} $${parseFloat(txn.amount).toFixed(2)}</strong> - ${capitalizeFirstLetter(txn.type)} - ${txn.method === 'cbe' ? txn.method.toUpperCase() : capitalizeFirstLetter(txn.method)}</p>
           <p class="date">${formatDate(txn.transaction_date)}</p>
       `;
 
