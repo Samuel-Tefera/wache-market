@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $buyer_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 
 // Handle status update request
 if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
@@ -23,9 +24,9 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
         exit;
     }
 
-    // Verify order belongs to buyer
-    $checkStmt = $conn->prepare("SELECT * FROM orders WHERE order_id = ? AND buyer_id = ?");
-    $checkStmt->bind_param("si", $order_id, $buyer_id);
+    // Verify order belongs to buyer or seller
+    $checkStmt = $conn->prepare("SELECT * FROM orders WHERE order_id = ? AND (buyer_id = ? OR seller_id = ?)");
+    $checkStmt->bind_param("sii", $order_id, $user_id, $user_id);
     $checkStmt->execute();
     $result = $checkStmt->get_result();
 
@@ -36,11 +37,13 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
 
     $orderData = $result->fetch_assoc();
     $product_id = $orderData['product_id'];
+    $buyer_id = $orderData['buyer_id'];
+    $seller_id = $orderData['seller_id'];
 
     // If canceling, handle refund and deduction
     if ($new_status === 'canceled') {
-        // Get price and seller_id
-        $productStmt = $conn->prepare("SELECT seller_id, price FROM products WHERE product_id = ?");
+        // Get product price
+        $productStmt = $conn->prepare("SELECT price FROM products WHERE product_id = ?");
         $productStmt->bind_param("i", $product_id);
         $productStmt->execute();
         $productResult = $productStmt->get_result();
@@ -51,21 +54,25 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
         }
 
         $product = $productResult->fetch_assoc();
-        $seller_id = $product['seller_id'];
         $price = floatval($product['price']);
 
         $conn->begin_transaction();
+
         try {
             // Update order status
             $updateStmt = $conn->prepare("UPDATE orders SET status = ? WHERE order_id = ?");
             $updateStmt->bind_param("ss", $new_status, $order_id);
             $updateStmt->execute();
 
-            // Refund buyer
-            $conn->query("UPDATE users SET wallet_balance = wallet_balance + $price WHERE user_id = $buyer_id");
+            // Refund to buyer
+            $refundBuyer = $conn->prepare("UPDATE users SET wallet_balance = wallet_balance + ? WHERE user_id = ?");
+            $refundBuyer->bind_param("di", $price, $buyer_id);
+            $refundBuyer->execute();
 
             // Deduct from seller
-            $conn->query("UPDATE users SET wallet_balance = wallet_balance - $price WHERE user_id = $seller_id");
+            $deductSeller = $conn->prepare("UPDATE users SET wallet_balance = wallet_balance - ? WHERE user_id = ?");
+            $deductSeller->bind_param("di", $price, $seller_id);
+            $deductSeller->execute();
 
             // Buyer refund transaction
             $buyerTxn = $conn->prepare("
@@ -92,16 +99,23 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
         exit;
     }
 
-    // Handle simple status update (completed)
+    // Handle 'completed' status
     $updateStmt = $conn->prepare("UPDATE orders SET status = ? WHERE order_id = ?");
     $updateStmt->bind_param("ss", $new_status, $order_id);
     if ($updateStmt->execute()) {
+        if ($new_status === 'completed') {
+            // Decrease quantity_available by 1
+            $updateQty = $conn->prepare("UPDATE products SET quantity_available = quantity_available - 1 WHERE product_id = ?");
+            $updateQty->bind_param("i", $product_id);
+            $updateQty->execute();
+        }
         echo json_encode(['success' => true, 'message' => "Order status updated to $new_status"]);
     } else {
         echo json_encode(['error' => 'Failed to update order status']);
     }
     exit;
 }
+
 
 // ========================
 // Main order placement logic
