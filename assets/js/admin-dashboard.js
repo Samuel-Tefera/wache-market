@@ -1,92 +1,136 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Get all elements
-    const resolveButtons = document.querySelectorAll('.resolve-btn:not(:disabled)');
-    const contactButtons = document.querySelectorAll('.contact-btn');
     const resolveModal = document.getElementById('resolveModal');
     const confirmResolve = document.getElementById('confirmResolve');
     const cancelResolve = document.getElementById('cancelResolve');
     const filterStatus = document.getElementById('filterStatus');
     const reportCount = document.getElementById('reportCount');
-
-    // Store the current report being acted upon
+    const reportList = document.querySelector('.reports-list');
     let currentReport = null;
 
-    // Resolve Report functionality
-    resolveButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            currentReport = this.closest('.report-card');
-            resolveModal.style.display = 'flex';
+    fetch('../core/report_orders.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.reports && Array.isArray(data.reports)) {
+                reportList.innerHTML = '';
+                data.reports.forEach(report => {
+                    const card = document.createElement('div');
+                    card.className = 'report-card';
+                    card.setAttribute('data-status', report.is_resolved == 1 ? 'resolved' : 'pending');
+
+                    card.innerHTML = `
+                        <div class="report-header">
+                            <span class="report-id">REPORT #${report.report_id}</span>
+                            <span class="report-date">${new Date(report.created_at).toLocaleDateString()}</span>
+                            <span class="report-status">${report.is_resolved == 1 ? 'Resolved' : 'Pending'}</span>
+                        </div>
+
+                        <div class="report-details">
+                            <div class="user-info">
+                                <p><strong>From:</strong> ${report.buyer_name} (Buyer)</p>
+                                <p><strong>Against:</strong> ${report.seller_name} (Seller)</p>
+                                <p><strong>Order:</strong> #${report.order_id}</p>
+                            </div>
+
+                            <div class="report-content">
+                                <h3>Issue Reported</h3>
+                                <p>${report.report_text}</p>
+                            </div>
+                        </div>
+
+                        <div class="report-actions">
+                            <button class="resolve-btn" ${report.is_resolved == 1 ? 'disabled' : ''}>${report.is_resolved == 1 ? 'Resolved' : 'Mark as Resolved'}</button>
+                            <button class="contact-btn">Contact Users</button>
+                        </div>
+                    `;
+
+                    reportList.appendChild(card);
+                });
+
+                updateReportCount();
+                initActionButtons();
+            }
+        })
+        .catch(error => console.error('Error fetching reports:', error));
+
+    function updateReportCount() {
+        const pendingReports = document.querySelectorAll('.report-card[data-status="pending"]').length;
+        if (reportCount) reportCount.textContent = pendingReports;
+    }
+
+    function initActionButtons() {
+        const resolveButtons = document.querySelectorAll('.resolve-btn:not(:disabled)');
+        const contactButtons = document.querySelectorAll('.contact-btn');
+
+        resolveButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                currentReport = this.closest('.report-card');
+                resolveModal.style.display = 'flex';
+            });
         });
-    });
 
-    // Contact Users functionality
-    contactButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        const reportCard = this.closest('.report-card');
-        const reportId = reportCard.querySelector('.report-id').textContent;
+        contactButtons.forEach(button => {
+            button.addEventListener( 'click', async function () {
+                const reportCard = this.closest('.report-card');
+                const reportId = reportCard.querySelector('.report-id').textContent.replace('REPORT #', '');
+                const response = await fetch( `../core/report_orders.php?report_id=${ reportId }` );
+                const data = await response.json();
+                if ( !data.error ) {
+                    document.getElementById('buyerName').textContent = data.buyerInfo.full_name;
+                    document.getElementById('buyerEmail').textContent = data.buyerInfo.email;
+                    document.getElementById('buyerPhone').textContent = data.buyerInfo.phone;
+                    document.getElementById('buyerAddress').textContent = data.buyerInfo.address;
 
-        // In a real app, you would fetch this data from your backend
-        // For demo purposes, we're using mock data
-        const buyerInfo = {
-            name: "John Doe",
-            email: "buyer123@example.com",
-            phone: "(555) 123-4567",
-            address: "Block B, Dorm 305"
-        };
+                    document.getElementById('sellerName').textContent = data.sellerInfo.full_name;
+                    document.getElementById('sellerEmail').textContent = data.sellerInfo.email;
+                    document.getElementById('sellerPhone').textContent = data.sellerInfo.phone;
+                    document.getElementById('sellerAddress').textContent = data.sellerInfo.address;
 
-        const sellerInfo = {
-            name: "Jane Smith",
-            email: "seller456@example.com",
-            phone: "(555) 987-6543",
-            address: "Block D, Dorm 112"
-        };
-
-        // Populate the modal with data
-        document.getElementById('buyerName').textContent = buyerInfo.name;
-        document.getElementById('buyerEmail').textContent = buyerInfo.email;
-        document.getElementById('buyerPhone').textContent = buyerInfo.phone;
-        document.getElementById('buyerAddress').textContent = buyerInfo.address;
-
-        document.getElementById('sellerName').textContent = sellerInfo.name;
-        document.getElementById('sellerEmail').textContent = sellerInfo.email;
-        document.getElementById('sellerPhone').textContent = sellerInfo.phone;
-        document.getElementById('sellerAddress').textContent = sellerInfo.address;
-
-        // Show the contact modal
-        document.getElementById('contactModal').style.display = 'flex';
+                    document.getElementById('contactModal').style.display = 'flex';
+                } else {
+                    alert('We got some problems while fetching user contacts.')
+                }
+            });
         });
-    });
+    }
 
-    // Confirm Resolve
-    confirmResolve.addEventListener('click', function() {
+    confirmResolve.addEventListener('click', async function() {
         if (currentReport) {
-            // Update UI
-            const statusElement = currentReport.querySelector('.report-status');
-            statusElement.textContent = 'Resolved';
-            statusElement.setAttribute('data-status', 'resolved');
+            const reportId = currentReport.querySelector( '.report-id' ).textContent.replace( 'REPORT #', '' );
+            const formData = { 'report_id': reportId };
 
-            // Disable resolve button
-            const resolveBtn = currentReport.querySelector('.resolve-btn');
-            resolveBtn.disabled = true;
-            resolveBtn.textContent = 'Resolved';
+            const response = await fetch( '../core/report_orders.php', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            } );
 
-            // Update report count
-            updateReportCount();
+            const data = await response.json();
+            console.log(data);
 
-            // Close modal
+            if ( data.success ) {
+                const statusElement = currentReport.querySelector('.report-status');
+                statusElement.textContent = 'Resolved';
+                currentReport.setAttribute('data-status', 'resolved');
+
+                const resolveBtn = currentReport.querySelector('.resolve-btn');
+                resolveBtn.disabled = true;
+                resolveBtn.textContent = 'Resolved';
+
+                updateReportCount();
+                alert('Report marked as resolved.');
+            } else {
+                alert('Failed to resolve report.');
+            }
             resolveModal.style.display = 'none';
-
-            // Show success message
-            alert('Report marked as resolved. Both parties will be notified.');
         }
     });
 
-    // Cancel Resolve
     cancelResolve.addEventListener('click', function() {
         resolveModal.style.display = 'none';
     });
 
-    // Filter reports
     filterStatus.addEventListener('change', function() {
         const status = this.value;
         const reports = document.querySelectorAll('.report-card');
@@ -101,25 +145,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close modal when clicking outside
     window.addEventListener('click', function(event) {
         if (event.target === resolveModal) {
             resolveModal.style.display = 'none';
         }
     });
 
-    // Update report count
-    function updateReportCount() {
-        const pendingReports = document.querySelectorAll('.report-card[data-status="pending"]').length;
-        reportCount.textContent = pendingReports;
-    }
-
-    // Initialize report count
-    updateReportCount();
-} );
-
-
-document.getElementById('closeContact').addEventListener('click', function() {
-    document.getElementById('contactModal').style.display = 'none';
+    document.getElementById('closeContact').addEventListener('click', function() {
+        document.getElementById('contactModal').style.display = 'none';
+    });
 });
-
