@@ -5,7 +5,7 @@ document.addEventListener( 'DOMContentLoaded', async function () {
         renderSellerOrders( data );
     }
     document.querySelectorAll('.status-btn').forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', async function () {
             const orderCard = this.closest('.order-card');
             const rawOrderId = orderCard.querySelector('.order-id').textContent;
             const orderId = rawOrderId.replace('#ORD-', '').toLowerCase(); // Clean up formatted ID
@@ -24,16 +24,33 @@ document.addEventListener( 'DOMContentLoaded', async function () {
             if (!newStatus) return;
 
             if (confirm(`Mark order ${rawOrderId} as ${actionText}?`)) {
-                // Update UI
                 orderCard.className = `order-card ${newStatus}`;
                 orderCard.querySelector('.order-status').textContent = actionText;
 
-                // Remove actions after status change
-                const actionsDiv = orderCard.querySelector('.order-actions');
-                actionsDiv.innerHTML = ''; // Clear buttons after status change
+                const formData = new FormData();
+                formData.append( 'order_id', orderId );
+                formData.append( 'status', newStatus );
+                formData.append( 'action', 'update_status' );
+                console.log(formData);
 
-                // You would make a real backend call here
-                console.log(`Order ${orderId} status updated to ${newStatus}`);
+                const response = await fetch( '../core/order.php', {
+                    method: 'POST',
+                    body: formData,
+                } );
+                if ( response.ok ) {
+                    const data = await response.json();
+                    console.log(data);
+
+                    if ( data.success ) {
+                        alert( `Marked order ${ rawOrderId } as ${ actionText }.` )
+                        const actionsDiv = orderCard.querySelector('.order-actions');
+                        actionsDiv.innerHTML = '';
+                    } else {
+                        alert( 'Something went wrong. Try agin Later.' );
+                    }
+                } else {
+                    alert( 'Something went wrong. Please try again.' );
+                }
             }
         });
     });
@@ -43,21 +60,18 @@ document.addEventListener( 'DOMContentLoaded', async function () {
 function renderSellerOrders ( data ) {
     const container = document.querySelector('.orders-container');
 
-    // Clear existing content
     container.innerHTML = '';
 
-    // Add heading
     const heading = document.createElement('h1');
     heading.textContent = 'My Product Orders';
     container.appendChild(heading);
 
-    // Create orders list container
     const ordersList = document.createElement('div');
     ordersList.className = 'orders-list';
 
     if (data.success && data.orders.length > 0) {
         data.orders.forEach(order => {
-            const statusClass = order.status.toLowerCase(); // pending, completed, canceled
+            const statusClass = order.status.toLowerCase();
             const orderCard = document.createElement('div');
             orderCard.className = `order-card ${statusClass}`;
 
@@ -66,7 +80,7 @@ function renderSellerOrders ( data ) {
                 year: 'numeric', month: 'short', day: 'numeric'
             });
 
-            const orderIdDisplay = `#ORD-${order.order_id.slice(0, 8).toUpperCase()}`;
+            const orderIdDisplay = `#ORD-${order.order_id.toUpperCase()}`;
             const capitalizedStatus = order.status.charAt(0).toUpperCase() + order.status.slice(1);
 
             orderCard.innerHTML = `
@@ -103,24 +117,6 @@ function renderSellerOrders ( data ) {
     }
 
     container.appendChild(ordersList);
-}
-
-function generateActionButton(status, orderId) {
-    status = status.toLowerCase();
-    if (status === 'pending') {
-        return `
-            <button class="status-btn mark-completed" onclick="markOrderCompleted('${orderId}')">
-                <i class="fas fa-check-circle"></i> Mark as Completed
-            </button>
-        `;
-    } else {
-        return '';
-    }
-}
-
-function markOrderCompleted(orderId) {
-    alert('Marking order ' + orderId + ' as completed...');
-    // You can add an AJAX call here to actually update the order
 }
 
 function generateActionButton(status, orderId) {
