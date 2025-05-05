@@ -46,10 +46,13 @@ document.addEventListener('DOMContentLoaded', function() {
             else {
                 successModal.style.display = 'flex';
                 continueBtn.addEventListener( 'click', function () {
+
                     if ( data.mode === 'buyer' ) {
                         window.location.href = 'buyer-home.php';
-                    } else {
+                    } else if(data.mode === 'seller') {
                         window.location.href = 'seller-home.php';
+                    } else if ( data.mode === 'admin' ) {
+                        window.location.href = 'admin-dashboard.php';
                     }
                     successModal.style.display = 'none';
                 } );
