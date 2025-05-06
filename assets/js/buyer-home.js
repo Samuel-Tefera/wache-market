@@ -10,21 +10,14 @@ if (mobileMenuBtn && navCenter) {
     });
 }
 
-
-
 document.addEventListener('DOMContentLoaded', async function() {
-    // 1. Search Functionality
     const searchBox = document.querySelector( '.search-box input' );
     const searchBtn = document.querySelector('.search-btn');
     await fetchAndRenderProducts();
 
-    function performSearch() {
+    async function performSearch() {
         const searchTerm = searchBox.value.trim();
-        const category = document.querySelector('.category-filter').value;
-
-        // In a real app, this would call your backend API
-        console.log(`Searching for: ${searchTerm} in category: ${category}`);
-        alert(`Search functionality would show results for: "${searchTerm}" in ${category || 'all categories'}`);
+        await fetchAndRenderProducts( search = searchTerm );
     }
 
     searchBtn.addEventListener('click', performSearch);
@@ -47,12 +40,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     categoryFilter.addEventListener('change', applyFilters);
     // sortFilter.addEventListener('change', applyFilters);
 
-    // 3. Add to Cart Functionality
     const addCartBtns = document.querySelectorAll('.add-cart-btn');
 
     addCartBtns.forEach(btn => {
     btn.addEventListener('click', async () => {
-        // const productCard = btn.closest('.product-card');
         const productId = btn.getAttribute('data-product-id');
 
         const formData = new FormData();
@@ -70,37 +61,14 @@ document.addEventListener('DOMContentLoaded', async function() {
                 btn.innerHTML = originalText;
                 btn.style.backgroundColor = '';
             }, 2000)
-        } else {
+        }
+        else {
             alert( 'Something Went Wrong. Please try agin later.' );
-        }
+        }});
     });
-});
-
-    // 4. View All Button Functionality
-    const viewAllBtns = document.querySelectorAll('.view-all-btn');
-
-    viewAllBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const category = this.getAttribute('href').split('=')[1];
-            console.log(`Viewing all products in category: ${category}`);
-            // In a real app, this would navigate to category page
-            // e.preventDefault(); // Uncomment to prevent actual navigation during testing
-        });
-    });
-
-    // 5. Mobile Responsiveness (if needed)
-    function handleMobileView() {
-        if (window.innerWidth < 768) {
-            // Mobile-specific adjustments
-        }
-    }
-
-    window.addEventListener('resize', handleMobileView);
-    handleMobileView();
 } );
 
-// /////////////////////////////////////////
-// Organize and render product categories with max 6 per category
+
 async function fetchAndRenderProducts(search = '', category = '') {
     try {
         let url = '../core/product.php';
@@ -128,9 +96,15 @@ async function fetchAndRenderProducts(search = '', category = '') {
 
 function renderProductsByCategory(products) {
     const container = document.querySelector('.category-products');
-    container.innerHTML = ''; // Clear old samples
+    container.innerHTML = '';
 
-    // Group products by category
+    if ( products.length === 0 ) {
+        const fallBack = document.createElement( 'div' );
+        fallBack.className = 'fallback';
+        fallBack.innerHTML = `<p>No products found!</p>`
+        container.appendChild( fallBack );
+        return;
+    }
     const grouped = products.reduce((acc, product) => {
         const category = product.category.toLowerCase();
         if (!acc[category]) acc[category] = [];
@@ -138,7 +112,6 @@ function renderProductsByCategory(products) {
         return acc;
     }, {});
 
-    // Icons per category (optional)
     const categoryIcons = {
         textbooks: 'fa-book',
         electronics: 'fa-laptop',
@@ -161,7 +134,7 @@ function renderProductsByCategory(products) {
         section.innerHTML = `
             <div class="category-header">
                 <h2><i class="fas ${icon}"></i> ${displayName}</h2>
-                <a href="category.html?type=${category}" class="view-all-btn">View All</a>
+                <a href="buyer-home.php?category=${category}" data-category-name="${category}" class="view-all-btn">View All</a>
             </div>
             <div class="products-grid">
                 ${topProducts.map(p => renderProductCard(p)).join('')}
