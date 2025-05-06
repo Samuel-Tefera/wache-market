@@ -133,10 +133,33 @@ function formatDate(dateString) {
 
 let popupType = null;
 
-function switchMode(mode) {
+async function switchMode(mode) {
   const modeDisplay = document.getElementById("user-mode-display");
   modeDisplay.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+
+  try {
+    const formData = new FormData();
+    formData.append("mode", mode);
+
+    const response = await fetch("../core/switch-mode.php", {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert(`Mode switched to ${result.new_mode.toUpperCase()}`);
+    } else {
+      alert(result.error || "Something went wrong");
+    }
+    window.location.reload();
+  } catch (error) {
+    alert("Network error while switching mode");
+    window.location.reload();
+  }
 }
+
 
 function openPopup(type) {
   const popup = document.getElementById("popup");
