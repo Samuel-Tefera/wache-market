@@ -228,6 +228,16 @@ body {
     background-color: #3a56d4;
 }
 
+.fallback{
+    width: 100%;
+}
+
+.fallback p{
+    font-size: 2.2rem;
+    text-align: center;
+    color: #aaa;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .products-grid {

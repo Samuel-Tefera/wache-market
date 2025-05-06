@@ -35,6 +35,7 @@ body {
     font-size: 1.8rem;
     margin-bottom: 20px;
     color: var(--dark);
+    text-align: center;
 }
 
 /* Order Filters */
@@ -189,6 +190,15 @@ body {
 
 .status-btn:hover {
     opacity: 0.9;
+}
+
+
+
+.fallback{
+    text-align: center;
+    color: #aaa;
+    font-size: 2.4rem;
+    margin-top: 1rem;
 }
 
 /* Responsive Design */

@@ -80,6 +80,12 @@ body {
     background-color: var(--primary-light);
 }
 
+.nav-links a:hover{
+    color: var(--primary);
+    font-weight: 600;
+    background-color: var(--primary-light);
+}
+
 .seller-nav-center .nav-links a.active::after {
     content: '';
     position: absolute;

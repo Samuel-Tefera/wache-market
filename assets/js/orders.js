@@ -113,7 +113,7 @@ function renderSellerOrders ( data ) {
             ordersList.appendChild(orderCard);
         });
     } else {
-        ordersList.innerHTML = '<p>No product orders found.</p>';
+        ordersList.innerHTML = '<p class="fallback">No product orders found.</p>';
     }
 
     container.appendChild(ordersList);

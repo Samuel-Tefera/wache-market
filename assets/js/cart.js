@@ -123,9 +123,10 @@ async function renderCart() {
 
         if (!data.success || data.items.length === 0) {
             const emptyMsg = document.createElement('p');
-            emptyMsg.textContent = '🛒 No cart data available';
+            emptyMsg.textContent = 'No cart data available';
             emptyMsg.style.textAlign = 'center';
-            emptyMsg.style.fontSize = '1.2rem';
+            emptyMsg.style.fontSize = '2.4rem';
+            emptyMsg.style.color = '#aaa';
             emptyMsg.style.marginTop = '2rem';
             main.appendChild(emptyMsg);
             return;
