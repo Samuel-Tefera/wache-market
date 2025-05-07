@@ -271,11 +271,6 @@ body {
     color: var(--danger);
 }
 
-.actions-cell {
-    display: flex;
-    gap: 10px;
-}
-
 .action-btn {
     width: 2.4rem;
     height: 2.4rem;
@@ -283,11 +278,6 @@ body {
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-}
-
-.action-btn.edit {
-    background-color: rgba(255, 193, 7, 0.1);
-    color: var(--warning);
 }
 
 .action-btn.delete {
