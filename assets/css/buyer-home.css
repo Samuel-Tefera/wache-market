@@ -28,14 +28,12 @@ body {
     z-index: 100;
 }
 
-/* Buyer Main Content */
 .buyer-main {
     max-width: 1400px;
     margin: 20px auto;
     padding: 0 20px;
 }
 
-/* Search and Filter Section */
 .search-filter-section {
     margin-bottom: 30px;
 }
@@ -69,17 +67,26 @@ body {
     cursor: pointer;
 }
 
-.filter-options {
+.category-chips {
     display: flex;
-    gap: 15px;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 5px;
 }
 
-.filter-options select {
-    padding: 10px 15px;
-    border: 1px solid var(--light-gray);
-    border-radius: 4px;
-    background-color: var(--white);
+.chip {
+    background-color: var(--light-gray);
+    border: none;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
     cursor: pointer;
+}
+
+.chip.active {
+    background-color: var(--primary);
+    color: white;
 }
 
 /* Category Products */
