@@ -10,6 +10,7 @@ require_auth('seller');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Dashboard - Wache-Market</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/buyer-orders.css">
     <link rel="stylesheet" href="../assets/css/seller-home.css">
 </head>
 <body>
@@ -40,7 +41,17 @@ require_auth('seller');
     </header>
     <main class="seller-dashboard">
     </main>
-
+    <!-- Delete Product Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h2>Delete Product</h2>
+            <p>Are you sure you want to delete this prodcut?</p>
+            <div class="modal-buttons">
+                <button id="confirmCancel" class="btn-danger">Yes, Delete</button>
+                <button id="closeCancel" class="btn-secondary">No, Keep It</button>
+            </div>
+        </div>
+    </div>
     <script src="../assets/js/seller-home.js"></script>
 </body>
 </html>
