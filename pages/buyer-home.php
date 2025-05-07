@@ -49,14 +49,12 @@ require_auth('buyer');
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
-                <div class="filter-options">
-                    <select class="category-filter">
-                        <option value="">All Categories</option>
-                        <option value="books">Textbooks</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="clothing">Clothing</option>
-                        <option value="dorm">Dorm Items</option>
-                    </select>
+                <div class="category-chips">
+                    <button class="chip active">All</button>
+                    <button class="chip">Books</button>
+                    <button class="chip">Electronics</button>
+                    <button class="chip">Clothing</button>
+                    <button class="chip">Others</button>
                 </div>
             </div>
         </section>

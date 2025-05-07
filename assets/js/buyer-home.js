@@ -25,20 +25,41 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (e.key === 'Enter') performSearch();
     });
 
-    // 2. Filter/Sort Functionality
-    const categoryFilter = document.querySelector('.category-filter');
-    // const sortFilter = document.querySelector('.sort-filter');
+    const chips = document.querySelectorAll('.chip');
 
-    function applyFilters() {
-        const category = categoryFilter.value;
-        // const sortBy = sortFilter.value;
+    // 1. Activate chip based on URL on page load
+    const params = new URLSearchParams(window.location.search);
+    const currentCategory = (params.get('category') || 'All').toLowerCase();
 
-        console.log(`Filtering by: ${category}, Sorting by: ${sortBy}`);
-        // In a real app, this would filter/sort the product list
-    }
+    chips.forEach(chip => {
+        if (chip.textContent.trim().toLowerCase() === currentCategory) {
+            chip.classList.add('active');
+        } else if ( chip.textContent.trim().toLowerCase() === 'books' ) {
+            if ( currentCategory === 'textbooks' ) {
+                chip.classList.add('active');
+            }
+        }
+        else {
+            chip.classList.remove('active');
+        }
+    });
 
-    categoryFilter.addEventListener('change', applyFilters);
-    // sortFilter.addEventListener('change', applyFilters);
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const selectedCategory = chip.textContent.trim();
+            let newUrl;
+            if ( selectedCategory === 'All' ) {
+                newUrl = `buyer-home.php`;
+            } else if ( selectedCategory === 'Books' ) {
+                newUrl = `buyer-home.php?category=textbooks`;
+            }
+            else {
+                newUrl = `buyer-home.php?category=${encodeURIComponent(selectedCategory)}`;
+            }
+            window.location.href = newUrl;
+        });
+    });
+
 
     const addCartBtns = document.querySelectorAll('.add-cart-btn');
 
