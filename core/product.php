@@ -9,7 +9,15 @@ $userId = $_SESSION['user_id'] ?? null;
 $mode = $_SESSION['mode'] ?? 'buyer';
 
 try {
-    if ($mode === 'seller' && $userId) {
+    if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+        parse_str(file_get_contents("php://input"), $deleteData);
+        if ($mode === 'seller' && isset($deleteData['product_id'])) {
+            deleteProduct($conn, intval($deleteData['product_id']), $userId, $response);
+        } else {
+            http_response_code(403);
+            $response['error'] = 'Unauthorized or missing product ID';
+        }
+    } elseif ($mode === 'seller' && $userId) {
         handleSellerData($conn, $userId, $response);
     } elseif (isset($_GET['product_id'])) {
         handleSingleProduct($conn, intval($_GET['product_id']), $response);
@@ -149,4 +157,27 @@ function handleSellerData($conn, $userId, &$response) {
     $response['total_products'] = $totalProducts;
     $response['pending_orders'] = $pendingOrders;
     $response['monthly_sales'] = $monthlySales;
+}
+
+function deleteProduct($conn, $productId, $sellerId, &$response) {
+    $checkStmt = $conn->prepare("SELECT product_id FROM Products WHERE product_id = ? AND seller_id = ?");
+    $checkStmt->bind_param("ii", $productId, $sellerId);
+    $checkStmt->execute();
+    $checkResult = $checkStmt->get_result();
+
+    if ($checkResult->num_rows === 0) {
+        http_response_code(404);
+        $response['error'] = 'Product not found or access denied.';
+        return;
+    }
+
+    $deleteStmt = $conn->prepare("DELETE FROM Products WHERE product_id = ?");
+    $deleteStmt->bind_param("i", $productId);
+    if ($deleteStmt->execute()) {
+        $response['success'] = true;
+        $response['message'] = 'Product deleted successfully.';
+    } else {
+        http_response_code(500);
+        $response['error'] = 'Failed to delete product.';
+    }
 }
