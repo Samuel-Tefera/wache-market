@@ -10,10 +10,56 @@ if (mobileMenuBtn && navCenter) {
     });
 }
 
-document.addEventListener( 'DOMContentLoaded', function () {
-    fetchSellerData();
+document.addEventListener( 'DOMContentLoaded', async function () {
+    await fetchSellerData();
     const currentPage = window.location.pathname.split('/').pop();
-    const navLinks = document.querySelectorAll('.seller-nav-center .nav-links a');
+    const navLinks = document.querySelectorAll( '.seller-nav-center .nav-links a' );
+
+    let selectedProductId = null;
+
+    const deleteButtons = document.querySelectorAll( '.delete' );
+
+    const deleteModal = document.getElementById('deleteModal');
+    const confirmDeleteBtn = document.getElementById('confirmCancel');
+    const cancelDeleteBtn = document.getElementById('closeCancel');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            selectedProductId = this.getAttribute('data-product-id');
+            deleteModal.style.display = 'flex';
+        });
+    });
+
+    cancelDeleteBtn.addEventListener('click', () => {
+        deleteModal.style.display = 'none';
+        selectedProductId = null;
+    });
+
+    confirmDeleteBtn.addEventListener('click', async () => {
+        if (!selectedProductId) return;
+
+        try {
+            const response = await fetch('../core/product.php', {
+                method: 'DELETE',
+                body: new URLSearchParams({ product_id: selectedProductId })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert( 'Product deleted successfully!' );
+                window.location.reload();
+            } else {
+                alert(result.error || 'Failed to delete product.');
+            }
+        } catch (error) {
+            alert('An error occurred while deleting.');
+            console.error(error);
+        }
+
+        deleteModal.style.display = 'none';
+        selectedProductId = null;
+    });
+
 
     navLinks.forEach(link => {
         const linkPage = link.getAttribute('href').split('/').pop();
@@ -57,7 +103,7 @@ function renderSellerDashboard(data) {
                 <div class="stats-icon"><i class="fas fa-chart-line"></i></div>
                 <div class="stats-info">
                     <h3>This Month's Sales</h3>
-                    <p class="stats-value">ETB ${data.monthly_sales}</p>
+                    <p class="stats-value"> ${data.monthly_sales}</p>
                 </div>
             </div>
         </section>
@@ -82,7 +128,7 @@ function renderSellerDashboard(data) {
     } else {
         const rows = data.products.map(product => `
             <tr>
-                <td class="product-cell">
+                <td class="">
                     <img src="../${product.first_image}" alt="Product" class="product-thumb">
                     <span>${product.title}</span>
                 </td>
@@ -90,8 +136,7 @@ function renderSellerDashboard(data) {
                 <td>${product.quantity_available}</td>
                 <td><span class="status-badge ${product.status === 'Active' ? 'active' : 'inactive'}">${product.status}</span></td>
                 <td class="actions-cell">
-                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                    <button data-product-id="${product.product_id}" class="action-btn delete"><i class="fas fa-trash"></i></button>
                 </td>
             </tr>
         `).join('');
@@ -112,7 +157,7 @@ function renderSellerDashboard(data) {
                                 <th>Price</th>
                                 <th>Stock</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
