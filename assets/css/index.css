@@ -201,7 +201,7 @@ header {
 
 .hero-buttons {
     display: flex;
-    gap: 4rem;
+    gap: 1.8rem;
 }
 
 .hero-image {
@@ -615,6 +615,8 @@ footer {
         padding: 40px 20px;
         transition: left 0.3s;
         z-index: 999;
+        display: flex;
+        justify-content: center;
     }
 
     .nav-center.active {
