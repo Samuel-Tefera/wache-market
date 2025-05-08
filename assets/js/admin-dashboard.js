@@ -1,4 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navCenter = document.querySelector('.seller-nav-center');
+
+if (mobileMenuBtn && navCenter) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navCenter.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navCenter.classList.contains('active')
+            ? '<i class="fas fa-times"></i>'
+            : '<i class="fas fa-bars"></i>';
+    });
+}
+
+document.addEventListener( 'DOMContentLoaded', function () {
     const resolveModal = document.getElementById('resolveModal');
     const confirmResolve = document.getElementById('confirmResolve');
     const cancelResolve = document.getElementById('cancelResolve');

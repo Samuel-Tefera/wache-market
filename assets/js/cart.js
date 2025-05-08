@@ -182,6 +182,18 @@ async function renderCart() {
 
     } catch (err) {
         console.error('Failed to load cart:', err);
-        main.innerHTML = '<p style="text-align:center;">❌ Something went wrong loading the cart.</p>';
+        main.innerHTML = '<p style="text-align:center;"> Something went wrong loading the cart.</p>';
     }
+}
+
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navCenter = document.querySelector('.seller-nav-center');
+
+if (mobileMenuBtn && navCenter) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navCenter.classList.toggle('active');
+        mobileMenuBtn.innerHTML = navCenter.classList.contains('active')
+            ? '<i class="fas fa-times"></i>'
+            : '<i class="fas fa-bars"></i>';
+    });
 }
