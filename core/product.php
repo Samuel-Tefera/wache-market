@@ -93,7 +93,14 @@ function handleBuyerProductList($conn, $params, &$response) {
         $types .= 's';
     }
 
-    $sql .= " ORDER BY p.post_date DESC";
+    $sql .= " ORDER BY CASE p.category
+                WHEN 'textbooks' THEN 1
+                WHEN 'electronics' THEN 2
+                WHEN 'clothing' THEN 3
+                WHEN 'OTHERS' THEN 4
+                ELSE 5
+                END,
+                p.post_date DESC";
 
     $stmt = $conn->prepare($sql);
     if (!empty($queryParams)) {
