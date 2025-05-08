@@ -45,8 +45,8 @@
                 <p>The campus marketplace connecting students and staff to trade books, electronics, clothing and more.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn">Start Shopping</a>
-                    <a href="#" class="btn btn-secondary">Sell Items</a>
+                    <a href="#" class="btn">Start Trading</a>
+                    <a href="#features" class="btn btn-secondary">Learn More &downarrow;</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -112,9 +112,9 @@
                     <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
                         alt="Textbooks" class="product-image">
                     <div class="product-info">
-                        <h3 class="product-title">Engineering Textbooks</h3>
+                        <h3 class="product-title">Books</h3>
                         <div class="product-price">ETB 250 - 500</div>
-                        <div class="product-meta">Used, Good Condition</div>
+                        <div class="product-meta">New, Used, Good Condition</div>
                     </div>
                 </div>
 
@@ -124,7 +124,7 @@
                     <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
                         alt="Laptop" class="product-image">
                     <div class="product-info">
-                        <h3 class="product-title">Used Laptops</h3>
+                        <h3 class="product-title">Electronics</h3>
                         <div class="product-price">ETB 8,000 - 15,000</div>
                         <div class="product-meta">Various Models Available</div>
                     </div>
@@ -136,7 +136,7 @@
                     <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
                         alt="Clothing" class="product-image">
                     <div class="product-info">
-                        <h3 class="product-title">University Hoodies</h3>
+                        <h3 class="product-title">Clothing</h3>
                         <div class="product-price">ETB 500 - 800</div>
                         <div class="product-meta">Official WU Merch</div>
                     </div>
@@ -250,7 +250,6 @@
     </section>
 
     <!-- CTA Section -->
-    <!-- In your index.html file, replace the cta section -->
     <section class="cta" id="cta">
         <div class="container">
             <h2>Join Wachemo's Marketplace Today</h2>
@@ -311,7 +310,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2023 Wache-Market. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms
+                <p>&copy; 2025 Wache-Market. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms
                         of Service</a></p>
             </div>
         </div>
