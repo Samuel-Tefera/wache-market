@@ -1,4 +1,3 @@
-// Mobile Menu Toggle
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navCenter = document.querySelector('.nav-center');
 
@@ -8,7 +7,6 @@ mobileMenuBtn.addEventListener('click', () => {
         '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
 });
 
-// Smooth Scrolling for Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -24,7 +22,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Testimonial Slider
 const testimonials = document.querySelectorAll('.testimonial');
 const dots = document.querySelectorAll('.testimonial-dot');
 let currentTestimonial = 0;
@@ -55,11 +52,9 @@ dots.forEach(dot => {
     });
 });
 
-// Initialize
 showTestimonial(0);
 startTestimonialSlider();
 
-// Sticky Header on Scroll
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     header.classList.toggle('sticky', window.scrollY > 0);

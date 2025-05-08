@@ -13,18 +13,15 @@ if (!isset($_SESSION['user_id'])) {
 $buyer_id = $_SESSION['user_id'];
 $user_id = $_SESSION['user_id'];
 
-// Handle status update request
 if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
     $order_id = isset($_POST['order_id']) ? $_POST['order_id'] : '';
     $new_status = isset($_POST['status']) ? $_POST['status'] : '';
 
-    // Validate input
     if (empty($order_id) || !in_array($new_status, ['completed', 'canceled'])) {
         echo json_encode(['error' => 'Invalid status or order ID']);
         exit;
     }
 
-    // Verify order belongs to buyer or seller
     $checkStmt = $conn->prepare("SELECT * FROM orders WHERE order_id = ? AND (buyer_id = ? OR seller_id = ?)");
     $checkStmt->bind_param("sii", $order_id, $user_id, $user_id);
     $checkStmt->execute();
@@ -40,9 +37,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
     $buyer_id = $orderData['buyer_id'];
     $seller_id = $orderData['seller_id'];
 
-    // If canceling, handle refund and deduction
     if ($new_status === 'canceled') {
-        // Get product price
         $productStmt = $conn->prepare("SELECT price FROM products WHERE product_id = ?");
         $productStmt->bind_param("i", $product_id);
         $productStmt->execute();
@@ -59,22 +54,18 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
         $conn->begin_transaction();
 
         try {
-            // Update order status
             $updateStmt = $conn->prepare("UPDATE orders SET status = ? WHERE order_id = ?");
             $updateStmt->bind_param("ss", $new_status, $order_id);
             $updateStmt->execute();
 
-            // Refund to buyer
             $refundBuyer = $conn->prepare("UPDATE users SET wallet_balance = wallet_balance + ? WHERE user_id = ?");
             $refundBuyer->bind_param("di", $price, $buyer_id);
             $refundBuyer->execute();
 
-            // Deduct from seller
             $deductSeller = $conn->prepare("UPDATE users SET wallet_balance = wallet_balance - ? WHERE user_id = ?");
             $deductSeller->bind_param("di", $price, $seller_id);
             $deductSeller->execute();
 
-            // Buyer refund transaction
             $buyerTxn = $conn->prepare("
                 INSERT INTO transactions (user_id, amount, type, method, related_product_id, status)
                 VALUES (?, ?, 'refund', 'app wallet', ?, 'completed')
@@ -82,7 +73,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
             $buyerTxn->bind_param("idi", $buyer_id, $price, $product_id);
             $buyerTxn->execute();
 
-            // Seller deduction transaction
             $sellerTxn = $conn->prepare("
                 INSERT INTO transactions (user_id, amount, type, method, related_product_id, status)
                 VALUES (?, ?, 'order_cancellation', 'app wallet', ?, 'completed')
@@ -99,12 +89,10 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
         exit;
     }
 
-    // Handle 'completed' status
     $updateStmt = $conn->prepare("UPDATE orders SET status = ? WHERE order_id = ?");
     $updateStmt->bind_param("ss", $new_status, $order_id);
     if ($updateStmt->execute()) {
         if ($new_status === 'completed') {
-            // Decrease quantity_available by 1
             $updateQty = $conn->prepare("UPDATE products SET quantity_available = quantity_available - 1 WHERE product_id = ?");
             $updateQty->bind_param("i", $product_id);
             $updateQty->execute();
@@ -117,9 +105,7 @@ if (isset($_POST['action']) && $_POST['action'] === 'update_status') {
 }
 
 
-// ========================
 // Main order placement logic
-// ========================
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['error' => 'Invalid request method']);
@@ -134,7 +120,6 @@ if (empty($product_ids) || $total_amount <= 0) {
     exit;
 }
 
-// Fetch buyer wallet balance and delivery location
 $userQuery = $conn->prepare("SELECT wallet_balance, address FROM users WHERE user_id = ?");
 $userQuery->bind_param("i", $buyer_id);
 $userQuery->execute();
@@ -154,12 +139,10 @@ if ($userData['wallet_balance'] < $total_amount) {
 
 $delivery_location = $userData['address'];
 
-// Begin transaction
 $conn->begin_transaction();
 
 try {
     foreach ($product_ids as $product_id) {
-        // Fetch seller_id and price from product
         $productStmt = $conn->prepare("SELECT seller_id AS seller_id, price FROM products WHERE product_id = ?");
         $productStmt->bind_param("i", $product_id);
         $productStmt->execute();
@@ -174,7 +157,6 @@ try {
         $price = $productData['price'];
         $order_id = uniqid();
 
-        // Insert into orders
         $orderStmt = $conn->prepare("
             INSERT INTO orders (order_id, seller_id, buyer_id, product_id, payment_method, delivery_location)
             VALUES (?, ?, ?, ?, 'app wallet', ?)
@@ -182,7 +164,6 @@ try {
         $orderStmt->bind_param("siiis", $order_id, $seller_id, $buyer_id, $product_id, $delivery_location);
         $orderStmt->execute();
 
-        // Record transaction for buyer (purchase)
         $buyerTxn = $conn->prepare("
             INSERT INTO transactions (user_id, amount, type, method, related_product_id, status)
             VALUES (?, ?, 'purchase', 'app wallet', ?, 'completed')
@@ -190,7 +171,6 @@ try {
         $buyerTxn->bind_param("idi", $buyer_id, $price, $product_id);
         $buyerTxn->execute();
 
-        // Record transaction for seller (sale)
         $sellerTxn = $conn->prepare("
             INSERT INTO transactions (user_id, amount, type, method, related_product_id, status)
             VALUES (?, ?, 'sale', 'app wallet', ?, 'completed')
@@ -198,14 +178,11 @@ try {
         $sellerTxn->bind_param("idi", $seller_id, $price, $product_id);
         $sellerTxn->execute();
 
-        // Update seller wallet
         $conn->query("UPDATE users SET wallet_balance = wallet_balance + $price WHERE user_id = $seller_id");
     }
 
-    // Deduct total from buyer wallet
     $conn->query("UPDATE users SET wallet_balance = wallet_balance - $total_amount WHERE user_id = $buyer_id");
 
-    // Clear user's cart
     $deleteCart = $conn->prepare("DELETE FROM cart WHERE user_id = ?");
     $deleteCart->bind_param("i", $buyer_id);
     $deleteCart->execute();

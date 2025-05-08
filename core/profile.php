@@ -28,7 +28,6 @@ while ($row = $transactionResult->fetch_assoc()) {
 }
 $transactionStmt->close();
 
-// Return both together
 echo json_encode([
     'success' => true,
     'user' => $userInfo,

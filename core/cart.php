@@ -5,7 +5,6 @@ require_once 'db.php';
 
 $response = ['success' => false];
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     $response['error'] = 'User not authenticated';
     echo json_encode($response);
@@ -14,7 +13,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Handle GET: Fetch cart items
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query = "
         SELECT
@@ -49,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     exit;
 }
 
-// Handle POST: Add product to cart
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : null;
 
@@ -59,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Check if product is already in user's cart
     $checkStmt = $conn->prepare("SELECT cart_item_id FROM cart WHERE user_id = ? AND product_id = ?");
     $checkStmt->bind_param("ii", $user_id, $product_id);
     $checkStmt->execute();
@@ -71,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Insert product into cart with default quantity = 1
     $insertStmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, 1)");
     $insertStmt->bind_param("ii", $user_id, $product_id);
 
@@ -86,9 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Handle DELETE: Remove product from cart
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Parse raw input for DELETE (PHP doesn't parse it automatically)
     parse_str(file_get_contents("php://input"), $deleteData);
     $product_id = isset($deleteData['product_id']) ? intval($deleteData['product_id']) : null;
 

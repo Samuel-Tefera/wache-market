@@ -24,7 +24,6 @@ document.addEventListener( 'DOMContentLoaded', async function () {
         });
     });
 
-    // Checkout Confirmation Modal
     const checkoutBtn = document.querySelector('.checkout-btn');
     const modalOverlay = document.querySelector('.modal-overlay');
     const cancelBtn = document.querySelector('.cancel-btn');
@@ -45,7 +44,6 @@ document.addEventListener( 'DOMContentLoaded', async function () {
     if (confirmBtn) {
         confirmBtn.addEventListener('click', async function () {
             try {
-                // Fetch latest cart data from backend
                 const cartRes = await fetch('../core/cart.php');
                 const cartData = await cartRes.json();
 
@@ -54,7 +52,6 @@ document.addEventListener( 'DOMContentLoaded', async function () {
                     return;
                 }
 
-                // Extract product_ids and subtotal
                 const product_ids = cartData.items.map(item => item.product_id);
                 const total_amount = Number(cartData.subtotal.toFixed(2));
                 const formData = new FormData();
@@ -63,7 +60,6 @@ document.addEventListener( 'DOMContentLoaded', async function () {
                 });
                 formData.append( 'total_amount', +total_amount );
 
-                // Send to orders.php
                 const orderRes = await fetch('../core/order.php', {
                     method: 'POST',
                     body: formData,
@@ -83,21 +79,16 @@ document.addEventListener( 'DOMContentLoaded', async function () {
                 alert('An error occurred during checkout.');
             }
 
-            // Close modal
             modalOverlay.classList.add('hidden');
         });
     }
 
-
-
-    // Close modal when clicking outside
     modalOverlay.addEventListener('click', function(e) {
         if (e.target === modalOverlay) {
             modalOverlay.classList.add('hidden');
         }
     });
 
-    // Add animation for removed items
     const style = document.createElement('style');
     style.textContent = `
         @keyframes fadeOut {

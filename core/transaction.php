@@ -35,14 +35,12 @@ if ($action === 'deposit' || $action === 'withdrawal') {
         exit;
     }
 
-    // Update wallet balance
     $new_balance = $action === 'deposit' ? $wallet_balance + $amount : $wallet_balance - $amount;
     $update = $conn->prepare("UPDATE Users SET wallet_balance = ? WHERE user_id = ?");
     $update->bind_param("di", $new_balance, $user_id);
     $update->execute();
     $update->close();
 
-    // Insert transaction
     $insert = $conn->prepare("INSERT INTO Transactions (user_id, amount, type, method, status) VALUES (?, ?, ?, ?, 'completed')");
     $insert->bind_param("idss", $user_id, $amount, $action, $method);
     $insert->execute();

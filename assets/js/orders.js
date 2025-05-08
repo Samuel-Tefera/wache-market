@@ -8,7 +8,7 @@ document.addEventListener( 'DOMContentLoaded', async function () {
         button.addEventListener('click', async function () {
             const orderCard = this.closest('.order-card');
             const rawOrderId = orderCard.querySelector('.order-id').textContent;
-            const orderId = rawOrderId.replace('#ORD-', '').toLowerCase(); // Clean up formatted ID
+            const orderId = rawOrderId.replace('#ORD-', '').toLowerCase();
 
             let newStatus = '';
             let actionText = '';
