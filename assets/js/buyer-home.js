@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     async function performSearch() {
         const searchTerm = searchBox.value.trim();
-        await fetchAndRenderProducts( search = searchTerm );
+        await fetchAndRenderProducts( search = searchTerm, category='' );
     }
 
     searchBtn.addEventListener('click', performSearch);
@@ -90,13 +90,20 @@ document.addEventListener('DOMContentLoaded', async function() {
 } );
 
 
-async function fetchAndRenderProducts(search = '', category = '') {
+async function fetchAndRenderProducts ( search = '' ) {
+    let slice = 5;
     try {
         let url = '../core/product.php';
-        const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams( window.location.search );
 
-        if (search) params.append('search', search);
-        if (category) params.append('category', category);
+        category = params.get('category');
+        console.log(!category);
+
+        if ( category ) {
+            slice = null;
+        }
+
+        if ( search ) params.append( 'search', search );
 
         if (params.toString()) {
             url += '?' + params.toString();
@@ -106,16 +113,16 @@ async function fetchAndRenderProducts(search = '', category = '') {
         const data = await response.json();
 
         if ( data.success ) {
-            renderProductsByCategory( data.products );
+            renderProductsByCategory( data.products, slice );
         } else {
-            console.log('Failed to fetch products:', data.error);
+            alert('Failed to fetch products:', data.error);
         }
     } catch (error) {
-        console.log('Error fetching products:', error);
+        alert('Error fetching products:', error);
     }
 };
 
-function renderProductsByCategory(products) {
+function renderProductsByCategory(products, slice) {
     const container = document.querySelector('.category-products');
     container.innerHTML = '';
 
@@ -147,7 +154,10 @@ function renderProductsByCategory(products) {
         const displayName = capitalize(category);
         const icon = categoryIcons[category] || 'fa-box';
 
-        const topProducts = items.slice(0, 6);
+        let topProducts = items;
+        if ( slice ) {
+            topProducts = topProducts.slice(0, 5);
+        }
 
         const section = document.createElement('div');
         section.className = 'category-section';
