@@ -97,7 +97,6 @@ async function fetchAndRenderProducts ( search = '' ) {
         const params = new URLSearchParams( window.location.search );
 
         category = params.get('category');
-        console.log(!category);
 
         if ( category ) {
             slice = null;

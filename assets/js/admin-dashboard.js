@@ -119,7 +119,6 @@ document.addEventListener( 'DOMContentLoaded', function () {
             } );
 
             const data = await response.json();
-            console.log(data);
 
             if ( data.success ) {
                 const statusElement = currentReport.querySelector('.report-status');

@@ -31,7 +31,6 @@ document.addEventListener( 'DOMContentLoaded', async function () {
                 formData.append( 'order_id', orderId );
                 formData.append( 'status', newStatus );
                 formData.append( 'action', 'update_status' );
-                console.log(formData);
 
                 const response = await fetch( '../core/order.php', {
                     method: 'POST',
@@ -39,7 +38,6 @@ document.addEventListener( 'DOMContentLoaded', async function () {
                 } );
                 if ( response.ok ) {
                     const data = await response.json();
-                    console.log(data);
 
                     if ( data.success ) {
                         alert( `Marked order ${ rawOrderId } as ${ actionText }.` )

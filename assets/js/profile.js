@@ -10,7 +10,6 @@ document.addEventListener( "DOMContentLoaded", async function () {
 
     const formData = new FormData( form );
     formData.append( 'action', type );
-    console.log(formData);
 
     const method = document.getElementById("method").value;
     const amount = parseFloat(document.getElementById("amount").value);
@@ -26,7 +25,6 @@ document.addEventListener( "DOMContentLoaded", async function () {
       body: formData
     } );
     const data = await response.json();
-    console.log(data);
 
     if ( data.success ) {
         alert(`${type.toUpperCase()} of $${amount} via ${method.toUpperCase()} submitted!`);

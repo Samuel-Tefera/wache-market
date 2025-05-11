@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: formData
             } );
             const data = await response.json();
-            console.log(data);
 
             if (!data.success) {
                 if ( data.message.includes( 'Email' ) ) {
