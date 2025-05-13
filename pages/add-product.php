@@ -22,7 +22,7 @@ require_auth('seller');
                     Wache-Market
                 </a>
             </div>
-            <a href="index.html" class="back-btn">
+            <a href="seller-home.php" class="back-btn">
             <i class="fas fa-arrow-left"></i> Back to Home</a>
         </nav>
     </header>
