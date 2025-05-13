@@ -31,7 +31,7 @@ document.addEventListener( "DOMContentLoaded", async function () {
     } else {
       alert(data.message)
     }
-
+    window.location.reload();
     closePopup();
   });
 } );
@@ -154,7 +154,6 @@ async function switchMode(mode) {
     window.location.reload();
   } catch (error) {
     alert("Network error while switching mode");
-    window.location.reload();
   }
 }
 
