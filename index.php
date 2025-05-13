@@ -28,8 +28,8 @@
                 </ul>
             </div>
             <div class="nav-right">
-                <a href="#" class="btn btn-outline">Login</a>
-                <a href="#" class="btn">Sign Up</a>
+                <a href="pages/login.php" class="btn btn-outline">Login</a>
+                <a href="pages/signup.php" class="btn">Sign Up</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -45,7 +45,7 @@
                 <p>The campus marketplace connecting students and staff to trade books, electronics, clothing and more.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn">Start Trading</a>
+                    <a href="pages/signup.php" class="btn">Start Trading</a>
                     <a href="#features" class="btn btn-secondary">Learn More &downarrow;</a>
                 </div>
             </div>
@@ -255,8 +255,8 @@
             <h2>Join Wachemo's Marketplace Today</h2>
             <p>Connect with fellow students and staff to buy and sell campus essentials in a trusted community.</p>
             <div class="cta-buttons">
-                <a href="#" class="btn">Sign Up Free</a>
-                <a href="#" class="btn btn-outline">Take a Tour</a>
+                <a href="pages/signup.php" class="btn">Sign Up Free</a>
+                <a href="#features" class="btn btn-outline">Take a Tour</a>
             </div>
         </div>
     </section>

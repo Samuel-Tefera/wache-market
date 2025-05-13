@@ -29,7 +29,7 @@
             <div class="footer-links">
                 <p>Not registred yet</p>
                 <span>•</span>
-                <a href="signup.html">Create account here</a>
+                <a href="signup.php">Create account here</a>
             </div>
         </form>
     </div>
